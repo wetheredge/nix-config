@@ -1,0 +1,24 @@
+{ config, options, lib, pkgs, ... }: with lib; {
+  options.profiles.desktop = mkOption {
+    type = types.bool;
+    default = false;
+  };
+
+  config = mkIf config.profiles.desktop {
+    time.timeZone = "America/New_York";
+
+    # CUPS
+    # sevices.printing.enable = true;
+
+    # Sound
+    # services.pulseaudio.enable = true;
+    # OR
+    # services.pipewire = {
+    #   enable = true;
+    #   pulse.enable = true;
+    # };
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    # services.libinput.enable = true;
+  };
+}
