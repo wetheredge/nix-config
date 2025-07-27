@@ -23,14 +23,14 @@
         inputs.impermanence.nixosModules.impermanence
         inputs.home-manager.nixosModules.home-manager
 
-        ./configuration.nix
+        ./hosts/deagol
 
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
 
-            users.wren = import ./home.nix;
+            users.wren = import ./home;
           };
         }
       ];

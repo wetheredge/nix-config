@@ -1,23 +1,22 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
   imports = [
-    ./disk.nix
+    ./disks.nix
     ./hardware-configuration.nix
     ./impermanence.nix
   ];
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    # Disallow editting kernel command-line to prevent easy root via init=/bin/sh
-    editor = false;
-  };
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices = {
-    crypted = {
-      device = "/dev/disk/by-partlabel/disk-main-luks";
-      allowDiscards = true;
-      preLVM = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      enable = true;
+      # Disallow editting kernel command-line to prevent easy root via init=/bin/sh
+      editor = false;
     };
+  };
+
+  # Pass through TRIM requests at a slight security risk
+  boot.initrd.luks.devices = {
+    crypted.allowDiscards = true;
   };
 
   networking.hostName = "deagol";
