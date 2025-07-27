@@ -47,6 +47,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
+  services.userborn.enable = true;
+
   users.users.wren = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
