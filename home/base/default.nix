@@ -1,7 +1,13 @@
-{ pkgs, ... }: {
+{ vars, pkgs, ... }: {
   imports = [
     ./shell.nix
   ];
+
+  home = {
+    username = vars.user;
+    homeDirectory = "/home/${vars.user}";
+    preferXdgDirectories = true;
+  };
 
   home.packages = with pkgs; [
     bat

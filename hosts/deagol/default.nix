@@ -3,12 +3,10 @@
     ./disks.nix
     ./hardware-configuration.nix
     ./impermanence.nix
-  ];
 
-  profiles = {
-    desktop = true;
-    hidpi = true;
-  };
+    ../../system/desktop.nix
+    ../../system/hidpi.nix
+  ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -24,7 +22,6 @@
     crypted.allowDiscards = true;
   };
 
-  networking.hostName = "deagol";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true; # wpa_supplicant
   # networking.networkmanager.enable = true;

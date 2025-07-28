@@ -18,8 +18,9 @@
   outputs = inputs@{ nixpkgs, ... }: let
     vars = import ./vars.nix;
     args = { inherit vars; };
+    host = "deagol";
   in {
-    nixosConfigurations.deagol = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = args;
       modules = [
@@ -27,16 +28,20 @@
         inputs.impermanence.nixosModules.impermanence
         inputs.home-manager.nixosModules.home-manager
 
-        ./system
-        ./hosts/deagol
+        ./system/base.nix
+        ./hosts/${host}
+
+        { networking.hostName = host; }
 
         {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             extraSpecialArgs = args;
-
-            users.${vars.user} = import ./home;
+            users.${vars.user}.imports = [
+              ./home/base
+              ./hosts/deagol/home.nix
+            ];
           };
         }
       ];
