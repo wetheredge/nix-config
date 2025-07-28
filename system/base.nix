@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, vars, ... }: {
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
@@ -9,7 +9,7 @@
   environment.variables.EDITOR = "hx";
 
   services.userborn.enable = true;
-  users.users.wren = {
+  users.users.${vars.user} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     password = "wren";

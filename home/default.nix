@@ -1,12 +1,12 @@
-{ ... }: {
+{ vars, ... }: {
   imports = [
     ./base
     ./dev
   ];
 
   home = {
-    username = "wren";
-    homeDirectory = "/home/wren";
+    username = vars.user;
+    homeDirectory = "/home/${vars.user}";
     preferXdgDirectories = true;
 
     stateVersion = "25.05";

@@ -15,9 +15,13 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, ... }: {
+  outputs = inputs@{ nixpkgs, ... }: let
+    vars = import ./vars;
+    args = { inherit vars; };
+  in {
     nixosConfigurations.deagol = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = args;
       modules = [
         inputs.disko.nixosModules.disko
         inputs.impermanence.nixosModules.impermanence
@@ -30,8 +34,9 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            extraSpecialArgs = args;
 
-            users.wren = import ./home;
+            users.${vars.user} = import ./home;
           };
         }
       ];

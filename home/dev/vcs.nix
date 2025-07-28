@@ -1,12 +1,8 @@
-{ ... }:
-let
-  name = "Wren Etheredge";
-  email = "me@wetheredge.com";
-in {
+{ vars, ... }: {
   programs.git = {
     enable = true;
-    userName = name;
-    userEmail = email;
+    userName = vars.name;
+    userEmail = vars.email;
 
     # Also used by jujutsu
     ignores = [ "*~" ];
@@ -38,11 +34,11 @@ in {
     enable = true;
     settings = {
       user = {
-        inherit name email;
+        inherit (vars) name email;
       };
 
       git = {
-        push-bookmark-prefix = "wetheredge/push-";
+        push-bookmark-prefix = "${vars.devUser}/push-";
         # Automatically track newly discovered remote bookmarks
         auto-local-bookmark = true;
       };
@@ -55,7 +51,7 @@ in {
       git_protocol = "ssh";
     };
     hosts."github.com" = {
-      user = "wetheredge";
+      user = vars.devUser;
     };
   };
 }
