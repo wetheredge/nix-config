@@ -1,34 +1,38 @@
-{ config, lib, ... }: {
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    echo "Rollback running" > /mnt/rollback.log
+{ vars, config, lib, ... }: {
+  boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir -p /mnt
     mount -t btrfs /dev/mapper/crypted /mnt
+    if [[ -e /mnt/root ]]; then
+      mkdir -p /mnt/root-backups
+      timestamp="$(date --date="@$(stat -c %Y /mnt/root)" "+%Y-%m-%-d_%H:%M:%S")"
+      mv /mnt/root "/mnt/root-backups/$timestamp"
+    fi
 
-    # Recursively delete all nested subvolumes inside /mnt/root
-    btrfs subvolume list -o /mnt/root | cut -f9 -d' ' | while read subvolume; do
-      echo "Deleting /$subvolume subvolume" >> /mnt/rollback.log
-      btrfs subvolume delete "/mnt/$subvolume"
+    delete_subvolumes_recursively() {
+      IFS=$'\n'
+      for vol in $(btrfs subvolume list -o "$1" | cut -f9- -d' '); do
+        delete_subvolume_recursively "/mnt/$vol"
+      done
+      btrfs subvolume delete "$1"
+    }
+
+    for vol in $(find /mnt/root-backups/ -maxdepth 1 -mtime +30); do
+      delete_subvolumes_recursively "$vol"
     done
 
-    echo "Deleting /root subvolume" >> /mnt/rollback.log
-    btrfs subvolume delete /mnt/root
-
-    echo "Restoring blank /root subvolume" >> /mnt/rollback.log
-    btrfs subvolume snapshot /mnt/root-blank /mnt/root
-
-    unmount /mnt
+    btrfs subvolume create /mnt/root
+    umount /mnt
   '';
 
-  environment.persistence."/persist" = {
+  environment.persistence."/state" = {
     directories = [
-      "/etc"
-      "/var/spool"
-      "/root"
-      "/srv"
-      "/etc/NetworkManager/system-connections"
-      "/var/lib/bluetooth"
+      "/var/log"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
     ];
-    files = [];
+    files = [
+      "/etc/machine-id"
+    ];
   };
 
   security.sudo.extraConfig = ''

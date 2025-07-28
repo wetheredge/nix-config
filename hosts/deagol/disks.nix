@@ -30,28 +30,16 @@
                     mountpoint = "/";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
-                  "/home" = {
-                    mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" "noatime" ];
-                  };
                   "/nix" = {
                     mountpoint = "/nix";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
-                  "/persist" = {
-                    mountpoint = "/persist";
+                  "/state" = {
+                    mountpoint = "/state";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
-                  "/log" = {
-                    mountpoint = "/var/log";
-                    mountOptions = [ "compress=zstd" "noatime" ];
-                  };
-                  "/lib" = {
-                    mountpoint = "/var/lib";
-                    mountOptions = [ "compress=zstd" "noatime" ];
-                  };
-                  "/persist/swap" = {
-                    mountpoint = "/persist/swap";
+                  "/state/swap" = {
+                    mountpoint = "/state/swap";
                     mountOptions = [ "nodatacow" "noatime" ];
                     swap.swapfile.size = "10G";
                   };
@@ -64,9 +52,5 @@
     };
   };
 
-  fileSystems = {
-    "/persist".neededForBoot = true;
-    "/var/log".neededForBoot = true;
-    "/var/lib".neededForBoot = true;
-  };
+  fileSystems."/state".neededForBoot = true;
 }
