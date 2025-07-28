@@ -16,35 +16,41 @@
   };
 
   outputs = inputs@{ nixpkgs, ... }: let
+    inherit (nixpkgs) lib;
     vars = import ./vars.nix;
     args = { inherit vars; };
-    host = "deagol";
-  in {
-    nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = args;
-      modules = [
-        inputs.disko.nixosModules.disko
-        inputs.impermanence.nixosModules.impermanence
-        inputs.home-manager.nixosModules.home-manager
-
-        ./system/base.nix
-        ./hosts/${host}
-
-        { networking.hostName = host; }
-
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = args;
-            users.${vars.user}.imports = [
-              ./home/base
-              ./hosts/deagol/home.nix
-            ];
-          };
-        }
-      ];
+    hosts = {
+      deagol = "x86_64-linux";
     };
+  in {
+    nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
+      name = host;
+      value = lib.nixosSystem {
+        inherit system;
+        specialArgs = args;
+        modules = [
+          inputs.disko.nixosModules.disko
+          inputs.impermanence.nixosModules.impermanence
+          inputs.home-manager.nixosModules.home-manager
+
+          ./system/base.nix
+          ./hosts/${host}
+
+          { networking.hostName = host; }
+
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = args;
+              users.${vars.user}.imports = [
+                ./home/base
+                ./hosts/${host}/home.nix
+              ];
+            };
+          }
+        ];
+      };
+    }) hosts);
   };
 }
