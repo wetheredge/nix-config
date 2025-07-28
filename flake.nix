@@ -16,7 +16,7 @@
   };
 
   outputs = inputs@{ nixpkgs, ... }: let
-    vars = import ./vars;
+    vars = import ./vars.nix;
     args = { inherit vars; };
   in {
     nixosConfigurations.deagol = nixpkgs.lib.nixosSystem {
