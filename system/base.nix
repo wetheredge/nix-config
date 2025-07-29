@@ -1,6 +1,8 @@
 { pkgs, vars, ... }: {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  console.earlySetup = true;
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
