@@ -21,6 +21,7 @@
     args = { inherit vars; };
     hosts = {
       deagol = "x86_64-linux";
+      eowyn = "x86_64-linux";
     };
   in {
     nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
