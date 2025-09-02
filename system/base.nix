@@ -1,5 +1,12 @@
 { pkgs, vars, ... }: {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+  };
 
   console.earlySetup = true;
 
@@ -7,10 +14,10 @@
 
   environment.systemPackages = with pkgs; [
     git
-    helix
+    micro
     wget
   ];
-  environment.variables.EDITOR = "hx";
+  environment.variables.EDITOR = "micro";
 
   services.userborn.enable = true;
   users.users.${vars.user} = {
@@ -29,4 +36,7 @@
       PermitRootLogin = "no";
     };
   };
+  # TODO: set programs.ssh.knownHosts from GitHub api?
+
+  services.tailscale.enable = true;
 }

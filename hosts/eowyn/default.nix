@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
     ./impermanence.nix
 
-    ../../system/desktop.nix
+    ../../system/desktop
   ];
 
   boot.loader = {
@@ -21,11 +21,14 @@
     crypted.allowDiscards = true;
   };
 
+  environment.etc = {
+    machine-info.text = "PRETTY_HOSTNAME=Éowyn";
+  };
+
   # Pick only one of the below networking options.
   # networking.wireless.enable = true; # wpa_supplicant
-  # networking.networkmanager.enable = true;
-
-  services.spice-vdagentd.enable = true;
+  networking.networkmanager.enable = true;
+  users.users.wren.extraGroups = [ "networkmanager" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

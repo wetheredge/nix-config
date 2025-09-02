@@ -6,7 +6,7 @@
     preferAbbrs = true;
     shellAbbrs = {
       c = "cd";
-      l = "eza";
+      l = "ls";
     };
     interactiveShellInit = ''
       set fish_greeting

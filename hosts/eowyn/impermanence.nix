@@ -1,4 +1,4 @@
-{ vars, config, lib, ... }: {
+{ vars, lib, ... }: {
   boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir -p /mnt
     mount -t btrfs /dev/mapper/crypted /mnt
@@ -29,10 +29,24 @@
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
+      "/var/lib/lockdown"
+      "/etc/NetworkManager/system-connections"
     ];
     files = [
       "/etc/machine-id"
     ];
+    users.${vars.user} = {
+      directories = [
+        { directory = ".ssh"; mode = "u=rw,g=,o="; }
+        "Documents"
+        "Pictures"
+        "Projects"
+      ];
+      files = [
+        { file = ".config/rbw/config.json"; parentDirectory = { mode = "u=rw,g=r,o="; }; }
+        { file = ".local/share/rbw/device_id"; parentDirectory = { mode = "u=rw,g=r,o="; }; }
+      ];
+    };
   };
 
   security.sudo.extraConfig = ''

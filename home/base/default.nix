@@ -1,6 +1,7 @@
 { vars, pkgs, ... }: {
   imports = [
-    ./shell.nix
+    ./shells.nix
+    ./editor.nix
   ];
 
   home = {
@@ -10,13 +11,43 @@
   };
 
   home.packages = with pkgs; [
-    bat
-    ripgrep
     btop
+    httpie
+    jq
+    ncdu
+    pv
+    delta
+
+    qrrs
   ];
+
+  programs.bat = {
+    enable = true;
+    config.map-syntax = [
+      "*.ino:C++"
+      # "*.x:Linker Script"
+      ".ignore:Git Ignore"
+    ];
+  };
 
   programs.eza = {
     enable = true;
-    git = true;
+    enableFishIntegration = false;
+    extraOptions = [
+      "--git"
+    ];
+  };
+  programs.fish.shellAliases = {
+    ls = "eza";
+    ll = "eza --long";
+    la = "eza --all";
+    lla = "eza --long --all";
+  };
+
+  programs.ripgrep = {
+    enable = true;
+    arguments = [
+      "--smart-case"
+    ];
   };
 }

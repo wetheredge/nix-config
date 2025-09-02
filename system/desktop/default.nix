@@ -1,4 +1,8 @@
 { ... }: {
+  imports = [
+    ./ios.nix
+  ];
+
   time.timeZone = "America/New_York";
 
   # CUPS
@@ -14,4 +18,7 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
+
+  services.displayManager.ly.enable = true;
+  programs.niri.enable = true;
 }

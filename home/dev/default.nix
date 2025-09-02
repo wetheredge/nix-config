@@ -4,7 +4,7 @@
   ];
 
   # language servers
-  home.packages = with pkgs; [
-    nixd
+  programs.helix.extraPackages = with pkgs; [
+    marksman
   ];
 }

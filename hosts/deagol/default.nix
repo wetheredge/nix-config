@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
     ./impermanence.nix
 
-    ../../system/desktop.nix
+    ../../system/desktop
     ../../system/hidpi.nix
   ];
 
