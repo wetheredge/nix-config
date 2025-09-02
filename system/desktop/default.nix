@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ./ios.nix
+    ./keyd.nix
   ];
 
   time.timeZone = "America/New_York";
