@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./firefox.nix
     ./kickoff
     ./eww
   ];
