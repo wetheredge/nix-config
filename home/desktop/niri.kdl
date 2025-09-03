@@ -1,0 +1,214 @@
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y%m%d%H%M%S.png"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+environment {
+    DIPSPLAY ":0"
+}
+
+input {
+    keyboard {
+    	xkb {
+    		options "compose:sclk"
+    	}
+    }
+
+    touchpad {
+        tap
+    }
+}
+
+output "eDP-1" {
+    mode "3840x2400@59.994"
+    scale 2
+    transform "normal"
+    position x=0 y=0
+}
+
+overview {
+    backdrop-color "#11111b" // crust
+}
+
+layout {
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+    // If you leave the brackets empty, the windows themselves will decide their initial width.
+    // default-column-width {}
+
+    // By default focus ring and border are rendered as a solid background rectangle
+    // behind windows. That is, they will show up through semitransparent windows.
+    // This is because windows using client-side decorations can have an arbitrary shape.
+    //
+    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // Niri will draw focus ring and border *around* windows that agree to omit their
+    // client-side decorations.
+    //
+    // Alternatively, you can override it with a window rule called
+    // `draw-border-with-background`.
+
+    // background-color "#1e1e2e" // base
+    background-color "#181825" // mantle
+
+    insert-hint {
+        color "#74c7ec80" // sapphire + half alpha
+    }
+
+    // You can change how the focus ring looks.
+    focus-ring {
+        off
+        width 0.5
+        // active-color "#cba6f7" // lavender
+        inactive-color "#6c7086" // overlay 0 -- on inactive monitors
+    }
+
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        width 1
+        active-color "#cba6f7" // lavender
+        // inactive-color "#6c7086" // overlay 0
+        inactive-color "#313244" // surface 0
+        urgent-color "#f38ba8" // red
+    }
+
+    gaps 16
+    struts {
+        left 64
+        right 32
+        top -8
+        bottom -8
+    }
+}
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-focused=false
+    opacity 0.92
+}
+
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
+window-rule {
+    // This regular expression is intentionally made as specific as possible,
+    // since this is the default config, and we want no false positives.
+    // You can get away with just app-id="wezterm" if you want.
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    match app-id=r#"^Bitwarden$"#
+
+    block-out-from "screen-capture"
+}
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Mod+Return { spawn "wezterm" "start" "--always-new-process"; }
+    Mod+W { spawn "firefox"; }
+    Mod+D { spawn "sh" "-c" "~/.config/kickoff/menu.sh | kickoff --from-stdin --history ~/.cache/kickoff/menu.csv"; }
+    // TODO: swaylock
+    // Super+Alt+L { spawn "swaylock"; }
+    // XF86Tools = F13 = tapped super
+    XF86Tools { toggle-overview; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    Mod+Q { close-window; }
+
+    Mod+H    { focus-column-left; }
+    Mod+J    { focus-window-down; }
+    Mod+K    { focus-window-up; }
+    Mod+L    { focus-column-right; }
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+
+    Mod+Shift+H    { move-column-left; }
+    Mod+Shift+J    { move-window-down; }
+    Mod+Shift+K    { move-window-up; }
+    Mod+Shift+L    { move-column-right; }
+    Mod+Shift+Home { move-column-to-first; }
+    Mod+Shift+End  { move-column-to-last; }
+
+    Mod+Ctrl+H { focus-monitor-left; }
+    Mod+Ctrl+J { focus-monitor-down; }
+    Mod+Ctrl+K { focus-monitor-up; }
+    Mod+Ctrl+L { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    Mod+N       { focus-workspace-down; }
+    Mod+P       { focus-workspace-up; }
+    Mod+Shift+N { move-column-to-workspace-down; }
+    Mod+Shift+P { move-column-to-workspace-up; }
+    Mod+Ctrl+N  { move-workspace-down; }
+    Mod+Ctrl+P  { move-workspace-up; }
+
+    // You can bind mouse wheel scroll ticks using the following syntax.
+    // These binds will change direction based on the natural-scroll setting.
+    //
+    // To avoid scrolling through workspaces really fast, you can use
+    // the cooldown-ms property. The bind will be rate-limited to this value.
+    // You can set a cooldown on any bind, but it's most useful for the wheel.
+    Mod+WheelScrollDown       cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp         cooldown-ms=150 { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight       { focus-column-right; }
+    Mod+WheelScrollLeft        { focus-column-left; }
+    Mod+Shift+WheelScrollRight { move-column-right; }
+    Mod+Shift+WheelScrollLeft  { move-column-left; }
+
+    Mod+Ctrl+WheelScrollDown       { focus-column-right; }
+    Mod+Ctrl+WheelScrollUp         { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Mod+TouchpadScrollUp   { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
+    Mod+TouchpadScrollDown { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    Mod+R       { switch-preset-column-width; }
+    Mod+Shift+R { reset-window-height; }
+    Mod+F       { fullscreen-window; }
+    Mod+M       { maximize-column; }
+    Mod+C       { center-column; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    Print { screenshot; }
+    Shift+Print { screenshot-window; }
+    Ctrl+Print { screenshot-screen; }
+
+    Mod+Shift+E { quit; }
+    Mod+Shift+S { power-off-monitors; }
+}

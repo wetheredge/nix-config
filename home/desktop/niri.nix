@@ -1,13 +1,11 @@
 { pkgs, ... }: {
+  xdg.configFile."niri/config.kdl".source = ./niri.kdl;
+
   home.packages = with pkgs; [
     swayimg
     # Needed for gtk-launch for kickoff/menu.sh
     gtk3
   ];
-
-  programs = {
-    alacritty.enable = true;
-  };
 
   programs.eww = {
     enable = true;
