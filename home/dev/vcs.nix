@@ -38,9 +38,17 @@
       };
 
       git = {
+        # TODO(v0.30.0): remove
+        write-change-id-header = true;
+
+        # TODO(v0.31.0): replace with
+        # templates.git_push_bookmark = "\"${vars.devUser}/push-\" ++ change_id.short()";
         push-bookmark-prefix = "${vars.devUser}/push-";
-        # Automatically track newly discovered remote bookmarks
-        auto-local-bookmark = true;
+      };
+
+      revset-aliases = {
+        "ahead()" = "remote_bookmarks()..bookmarks()";
+        "behind()" = "bookmarks()..remote_bookmarks()";
       };
     };
   };
