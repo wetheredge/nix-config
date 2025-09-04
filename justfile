@@ -9,3 +9,6 @@ dry-build:
 
 diff:
     nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result
+
+update: && diff
+    nix flake update
