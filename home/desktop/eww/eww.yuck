@@ -1,0 +1,67 @@
+(defwindow workspaces
+           :monitor "eDP-1"
+           :geometry (geometry :anchor "top left"
+                               :x "8px"
+                               :y "16px"
+                               :width "40px")
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+  (workspaces))
+
+(defwindow status
+           :monitor "eDP-1"
+           :geometry (geometry :anchor "bottom left"
+                               :x "8px"
+                               :y "16px"
+                               :width "40px")
+           :stacking "fg"
+           :exclusive true
+           :focusable false
+  (status))
+
+
+(defwidget workspaces []
+  (box :orientation "vertical"
+       :class "bar"
+       :hexpand false
+    (for workspace in workspaces
+      (label :text {workspace.idx}))))
+(defpoll workspaces :interval "2s"
+                    :initial "[]"
+  `niri msg --json workspaces`)
+
+
+(defwidget status []
+  (box :orientation "vertical"
+       :class "bar"
+       :space-evenly false
+    (ram)
+    (battery)
+    (clock)))
+
+; (defpoll brightness :interval "10s"
+;   `brightnessctl --percentage get`)
+
+(defwidget ram []
+  (box :orientation "vertical"
+       :class "ram"
+    (label :class "icon" :text "R")
+    (label :text {round(
+      EWW_RAM.available_mem / EWW_RAM.total_mem * 100,
+      EWW_RAM.available_mem / EWW_RAM.total_mem < 0.1 ? 1 : 0)})))
+
+(defwidget battery []
+  (box :class "battery ${EWW_BATTERY.BAT0.status} ${EWW_BATTERY.BAT0.capacity > 40 ? "" : (EWW_BATTERY.BAT0.capacity > 20 ? "low" : "critical")}"
+       :space-evenly false
+       :tooltip {EWW_BATTERY.BAT0.status == "Full" ? "Full" : "${EWW_BATTERY.BAT0.status}: ${EWW_BATTERY.BAT0.capacity}%"}
+    (box :class "meter fill-${round(EWW_BATTERY.BAT0.capacity / 100 * 18 * 2, 0)}"
+         :width 20)
+    (box :class "bump" :width 1)))
+
+(defwidget clock []
+  (box :orientation "vertical"
+       :class "clock"
+       :tooltip {formattime(EWW_TIME, "%Y.%m.%d")}
+    (label :class "hour" :text {formattime(EWW_TIME, "%H")})
+    (label :class "minute" :text {formattime(EWW_TIME, "%M")})))
