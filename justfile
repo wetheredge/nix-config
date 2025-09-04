@@ -6,3 +6,6 @@ switch:
 
 dry-build:
     nixos-rebuild dry-build --flake .
+
+diff:
+    nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result

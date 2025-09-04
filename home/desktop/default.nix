@@ -6,6 +6,7 @@
 
   home.packages = with pkgs; [
     just
+    nvd
     swayimg
 
     # For rbw
