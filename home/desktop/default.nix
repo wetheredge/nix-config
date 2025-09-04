@@ -5,6 +5,7 @@
   ];
 
   home.packages = with pkgs; [
+    just
     swayimg
 
     # For rbw
