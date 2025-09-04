@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Needed for gtk-launch for kickoff/menu.sh
     gtk3
@@ -19,22 +19,22 @@
 
       # Catppuccin latte
       colors = {
-        background = "#eff1f5dd";  # base
-        prompt = "#7287fd";        # lavender
-        text = "#6c6f85";          # subtext0
-        text_query = "#4c4f69";    # text
+        background = "#eff1f5dd"; # base
+        prompt = "#7287fd"; # lavender
+        text = "#6c6f85"; # subtext0
+        text_query = "#4c4f69"; # text
         text_selected = "#7287fd"; # lavender
       };
 
       keybindings = {
-        paste = [ "ctrl+v" ];
-        execute = [ "Return" "KP_Enter" ];
-        delete = [ "BackSpace" "Delete" "KP_Delete" ];
-        delete_word = [ "ctrl+BackSpace" "ctrl+w" "ctrl+Delete" "ctrl+KP_Delete" ];
-        complete = [ "Tab" ];
-        nav_up = [ "ctrl+p" "Up" ];
-        nav_down = [ "ctrl+n" "Down" ];
-        exit = [ "Escape" ];
+        paste = ["ctrl+v"];
+        execute = ["Return" "KP_Enter"];
+        delete = ["BackSpace" "Delete" "KP_Delete"];
+        delete_word = ["ctrl+BackSpace" "ctrl+w" "ctrl+Delete" "ctrl+KP_Delete"];
+        complete = ["Tab"];
+        nav_up = ["ctrl+p" "Up"];
+        nav_down = ["ctrl+n" "Down"];
+        exit = ["Escape"];
       };
     };
   };

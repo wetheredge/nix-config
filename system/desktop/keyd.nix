@@ -1,10 +1,10 @@
-{ ... }: {
+_: {
   services.keyd = {
     enable = true;
 
     keyboards = {
       default = {
-        ids = [ "*" ];
+        ids = ["*"];
         extraConfig = builtins.readFile ./keyd.conf;
       };
     };

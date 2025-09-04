@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{
   imports = [
     ./disks.nix
     ./hardware-configuration.nix
@@ -11,7 +11,7 @@
     efi.canTouchEfiVariables = true;
     systemd-boot = {
       enable = true;
-      # Disallow editting kernel command-line to prevent easy root via init=/bin/sh
+      # Disallow editing kernel command-line to prevent easy root via init=/bin/sh
       editor = false;
     };
   };
@@ -28,7 +28,7 @@
   # Pick only one of the below networking options.
   # networking.wireless.enable = true; # wpa_supplicant
   networking.networkmanager.enable = true;
-  users.users.wren.extraGroups = [ "networkmanager" ];
+  users.users.wren.extraGroups = ["networkmanager"];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

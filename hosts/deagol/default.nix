@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{
   imports = [
     ./disks.nix
     ./hardware-configuration.nix
@@ -12,7 +12,7 @@
     efi.canTouchEfiVariables = true;
     systemd-boot = {
       enable = true;
-      # Disallow editting kernel command-line to prevent easy root via init=/bin/sh
+      # Disallow editing kernel command-line to prevent easy root via init=/bin/sh
       editor = false;
     };
   };

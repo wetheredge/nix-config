@@ -1,4 +1,8 @@
-{ vars, pkgs, ... }: {
+{
+  vars,
+  pkgs,
+  ...
+}: {
   imports = [
     ./shells.nix
     ./editor.nix

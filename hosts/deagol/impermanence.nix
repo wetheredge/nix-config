@@ -1,4 +1,4 @@
-{ vars, config, lib, ... }: {
+{lib, ...}: {
   boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir -p /mnt
     mount -t btrfs /dev/mapper/crypted /mnt

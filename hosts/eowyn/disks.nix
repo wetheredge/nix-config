@@ -13,7 +13,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
+              mountOptions = ["umask=0077"];
             };
           };
           luks = {
@@ -24,23 +24,23 @@
               settings.allowDiscards = true;
               content = {
                 type = "btrfs";
-                extraArgs = [ "--label" "nixos" "--force" ];
+                extraArgs = ["--label" "nixos" "--force"];
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                   "/state" = {
                     mountpoint = "/state";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                   };
                   "/state/swap" = {
                     mountpoint = "/state/swap";
-                    mountOptions = [ "nodatacow" "noatime" ];
+                    mountOptions = ["nodatacow" "noatime"];
                     swap.swapfile.size = "10G";
                   };
                 };

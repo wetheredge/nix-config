@@ -19,10 +19,14 @@
     treefmt.url = "github:numtide/treefmt-nix";
   };
 
-  outputs = inputs@{ nixpkgs, systems, ... }: let
+  outputs = inputs @ {
+    nixpkgs,
+    systems,
+    ...
+  }: let
     inherit (nixpkgs) lib;
     vars = import ./vars.nix;
-    args = { inherit vars; };
+    args = {inherit vars;};
 
     hosts = {
       deagol = "x86_64-linux";
@@ -35,33 +39,34 @@
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
     nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
-      name = host;
-      value = lib.nixosSystem {
-        inherit system;
-        specialArgs = args;
-        modules = [
-          inputs.disko.nixosModules.disko
-          inputs.impermanence.nixosModules.impermanence
-          inputs.home-manager.nixosModules.home-manager
+        name = host;
+        value = lib.nixosSystem {
+          inherit system;
+          specialArgs = args;
+          modules = [
+            inputs.disko.nixosModules.disko
+            inputs.impermanence.nixosModules.impermanence
+            inputs.home-manager.nixosModules.home-manager
 
-          ./system/base.nix
-          ./hosts/${host}
+            ./system/base.nix
+            ./hosts/${host}
 
-          { networking.hostName = host; }
+            {networking.hostName = host;}
 
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = args;
-              users.${vars.user}.imports = [
-                ./home/base
-                ./hosts/${host}/home.nix
-              ];
-            };
-          }
-        ];
-      };
-    }) hosts);
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = args;
+                users.${vars.user}.imports = [
+                  ./home/base
+                  ./hosts/${host}/home.nix
+                ];
+              };
+            }
+          ];
+        };
+      })
+      hosts);
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -29,8 +29,8 @@
         # lsp.display-inlay-hints = true;
 
         statusline = {
-          left = [ "mode" "spinner" "spacer" "version-control" ];
-          center = [ "file-name" "file-modification-indicator" ];
+          left = ["mode" "spinner" "spacer" "version-control"];
+          center = ["file-name" "file-modification-indicator"];
         };
       };
     };

@@ -1,4 +1,8 @@
-{ vars, lib, ... }: {
+{
+  vars,
+  lib,
+  ...
+}: {
   boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir -p /mnt
     mount -t btrfs /dev/mapper/crypted /mnt
@@ -37,15 +41,24 @@
     ];
     users.${vars.user} = {
       directories = [
-        { directory = ".ssh"; mode = "u=rw,g=,o="; }
+        {
+          directory = ".ssh";
+          mode = "u=rw,g=,o=";
+        }
         "Documents"
         "Pictures"
         "Projects"
       ];
       files = [
         ".cache/kickoff/menu.csv"
-        { file = ".config/rbw/config.json"; parentDirectory = { mode = "u=rw,g=r,o="; }; }
-        { file = ".local/share/rbw/device_id"; parentDirectory = { mode = "u=rw,g=r,o="; }; }
+        {
+          file = ".config/rbw/config.json";
+          parentDirectory = {mode = "u=rw,g=r,o=";};
+        }
+        {
+          file = ".local/share/rbw/device_id";
+          parentDirectory = {mode = "u=rw,g=r,o=";};
+        }
       ];
     };
   };

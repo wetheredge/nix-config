@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./ios.nix
     ./keyd.nix
@@ -7,7 +7,7 @@
   time.timeZone = "America/New_York";
 
   # CUPS
-  # sevices.printing.enable = true;
+  # services.printing.enable = true;
 
   # Sound
   # services.pulseaudio.enable = true;

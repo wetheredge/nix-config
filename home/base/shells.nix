@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.shell.enableShellIntegration = true;
 
   programs.fish = {
@@ -28,7 +28,7 @@
     enable = true;
     settings = {
       git_metrics.disabled = false;
-      nodejs.detect_files = [ "package.json" ".node-version" "!bunfig.toml" "!bun.lockb" ];
+      nodejs.detect_files = ["package.json" ".node-version" "!bunfig.toml" "!bun.lockb"];
       status.disabled = false;
     };
   };

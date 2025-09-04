@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ../../home/dev
     ../../home/desktop

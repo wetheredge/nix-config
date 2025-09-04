@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.eww = {
     enable = true;
     configDir = ./config;
@@ -9,8 +9,8 @@
     open = window: {
       Unit = {
         Description = "ElKowars Wacky Widgets (${window})";
-        Requires = [ "eww.service" ];
-        After = [ "eww.service" ];
+        Requires = ["eww.service"];
+        After = ["eww.service"];
       };
       Service = {
         Type = "oneshot";
@@ -19,7 +19,7 @@
         RemainAfterExit = true;
       };
       Install = {
-        WantedBy = [ "niri.service" ];
+        WantedBy = ["niri.service"];
       };
     };
   in {
@@ -28,8 +28,8 @@
         Description = "ElKowars Wacky Widgets";
         Documentation = "https://elkowar.github.io/eww";
         # FIXME: Shouldn't these be graphical-session.target?
-        After = [ "niri.service" ];
-        PartOf = [ "niri.service" ];
+        After = ["niri.service"];
+        PartOf = ["niri.service"];
       };
       Service = {
         ExecStart = "${bin} daemon --no-daemonize";
@@ -37,7 +37,7 @@
         ExecReload = "${bin} reload";
       };
       Install = {
-        WantedBy = [ "niri.service" ];
+        WantedBy = ["niri.service"];
       };
     };
     eww-open-status = open "status";

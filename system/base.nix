@@ -1,6 +1,10 @@
-{ pkgs, vars, ... }: {
+{
+  pkgs,
+  vars,
+  ...
+}: {
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = ["nix-command" "flakes"];
     gc = {
       automatic = true;
       dates = "weekly";
@@ -22,7 +26,7 @@
   services.userborn.enable = true;
   users.users.${vars.user} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     password = "wren";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+q0xtKrTMzJLwr1rRNcJJzpP/FL1/ugnNF6WC3rE7M me@wetheredge.com"
