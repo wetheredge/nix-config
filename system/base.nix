@@ -43,4 +43,6 @@
   # TODO: set programs.ssh.knownHosts from GitHub api?
 
   services.tailscale.enable = true;
+
+  services.fwupd.enable = true;
 }
