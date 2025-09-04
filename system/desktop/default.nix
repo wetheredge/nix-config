@@ -4,6 +4,8 @@
     ./keyd.nix
   ];
 
+  boot.loader.timeout = 0;
+
   time.timeZone = "America/New_York";
 
   # CUPS
