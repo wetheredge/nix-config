@@ -122,7 +122,7 @@ binds {
 
     Mod+Return { spawn "wezterm" "start" "--always-new-process"; }
     Mod+W { spawn "firefox"; }
-    Mod+D { spawn "sh" "-c" "~/.config/kickoff/menu.sh | kickoff --from-stdin --history ~/.cache/kickoff/menu.csv"; }
+    Mod+D { spawn-sh "~/.config/kickoff/menu.sh | kickoff --from-stdin --history ~/.cache/kickoff/menu.csv"; }
     // TODO: swaylock
     // Super+Alt+L { spawn "swaylock"; }
     // XF86Tools = F13 = tapped super
