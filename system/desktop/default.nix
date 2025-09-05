@@ -2,7 +2,10 @@
   imports = [
     ./ios.nix
     ./keyd.nix
+    ./pam-fprint.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   boot.loader.timeout = 0;
 

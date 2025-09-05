@@ -33,6 +33,7 @@
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
+      "/var/lib/fprint"
       "/var/lib/lockdown"
       "/etc/NetworkManager/system-connections"
     ];

@@ -1,4 +1,8 @@
-{nixos-hardware, ...}: {
+{
+  pkgs,
+  nixos-hardware,
+  ...
+}: {
   imports = [
     nixos-hardware.nixosModules.dell-xps-13-9300
 
@@ -21,6 +25,14 @@
   # Pass through TRIM requests at a slight security risk
   boot.initrd.luks.devices = {
     crypted.allowDiscards = true;
+  };
+
+  services.fprintd = {
+    enable = true;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-goodix;
+    };
   };
 
   environment.etc = {
