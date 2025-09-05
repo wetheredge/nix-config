@@ -1,5 +1,7 @@
-{
+{nixos-hardware, ...}: {
   imports = [
+    nixos-hardware.nixosModules.dell-xps-13-9300
+
     ./disks.nix
     ./hardware-configuration.nix
     ./impermanence.nix

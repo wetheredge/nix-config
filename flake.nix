@@ -9,6 +9,8 @@
 
     systems.url = "github:nix-systems/default";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     disko = {
       url = "github:nix-community/disko/v1.11.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +28,12 @@
   }: let
     inherit (nixpkgs) lib;
     vars = import ./vars.nix;
-    args = {inherit vars;};
+
+    args = rec {
+      base = {inherit vars;};
+      nixos = base // {inherit (inputs) nixos-hardware;};
+      home = base;
+    };
 
     hosts = {
       deagol = "x86_64-linux";
@@ -42,7 +49,7 @@
         name = host;
         value = lib.nixosSystem {
           inherit system;
-          specialArgs = args;
+          specialArgs = args.nixos;
           modules = [
             inputs.disko.nixosModules.disko
             inputs.impermanence.nixosModules.impermanence
@@ -57,7 +64,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = args;
+                extraSpecialArgs = args.home;
                 users.${vars.user}.imports = [
                   ./home/base
                   ./hosts/${host}/home.nix
