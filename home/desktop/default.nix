@@ -8,7 +8,10 @@
   home.packages = with pkgs; [
     just
     nvd
+
+    brightnessctl
     swayimg
+    wev
 
     # For rbw
     pinentry-curses

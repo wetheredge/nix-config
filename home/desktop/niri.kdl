@@ -133,6 +133,9 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--exponent=1.5" "set" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--exponent=1.5" "set" "5%-"; }
+
     Mod+Q { close-window; }
 
     Mod+H    { focus-column-left; }
