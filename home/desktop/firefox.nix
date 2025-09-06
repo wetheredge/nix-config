@@ -1,4 +1,9 @@
 {
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}: {
   programs.firefox = {
     enable = true;
 
@@ -78,6 +83,37 @@
         force = true;
         default = "ddg";
         privateDefault = "ddg";
+
+        # Based on <https://wiki.nixos.org/wiki/Firefox#Advanced>
+        engines = let
+          channel = osConfig.system.nixos.release;
+          nixSnowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          nixSearch = aliases: url: params: {
+            definedAliases = aliases;
+            icon = nixSnowflake;
+            urls = [
+              {
+                template = url;
+                params = lib.mapAttrsToList (name: value: {inherit name value;}) params;
+              }
+            ];
+          };
+          searchNixosOrg = aliases: type:
+            nixSearch aliases "https://search.nixos.org/${type}" {
+              inherit channel;
+              query = "{searchTerms}";
+            };
+        in {
+          "Nix Packages" = searchNixosOrg ["@nixpkgs" "@np"] "packages";
+          "Nix Options" = searchNixosOrg ["@no"] "options";
+          "NixOS Wiki" = nixSearch ["@nw"] "https://wiki.nixos.org/w/index.php" {
+            search = "{searchTerms}";
+          };
+          "Home Manager Options" = nixSearch ["@ho"] "https://home-manager-options.extranix.com" {
+            release = "release-${channel}";
+            query = "{searchTerms}";
+          };
+        };
       };
     };
   };
