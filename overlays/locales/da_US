@@ -1,0 +1,82 @@
+comment_char %
+escape_char /
+
+LC_IDENTIFICATION
+title        "Wren's Danish locale for the US"
+source       "Wren"
+address      ""
+contact      ""
+email        ""
+tel          ""
+fax          ""
+language     "Danish"
+territory    "United States"
+revision     "1.0"
+date         "2025-09-06"
+
+category  "i18n:2012";LC_IDENTIFICATION
+category  "i18n:2012";LC_CTYPE
+category  "i18n:2012";LC_COLLATE
+category  "i18n:2012";LC_TIME
+category  "i18n:2012";LC_NUMERIC
+category  "i18n:2012";LC_MONETARY
+category  "i18n:2012";LC_PAPER
+category  "i18n:2012";LC_MEASUREMENT
+category  "i18n:2012";LC_MESSAGES
+category  "i18n:2012";LC_NAME
+category  "i18n:2012";LC_ADDRESS
+category  "i18n:2012";LC_TELEPHONE
+END LC_IDENTIFICATION
+
+LC_COLLATE
+copy "da_DK"
+END LC_COLLATE
+
+LC_CTYPE
+copy "da_DK"
+END LC_CTYPE
+
+LC_MONETARY
+copy "en_US"
+END LC_MONETARY
+
+LC_NUMERIC
+copy "en_US"
+END LC_NUMERIC
+
+LC_TIME
+copy "da_DK"
+
+week          7;19971130;1
+first_weekday 1
+d_t_fmt       "%a %d %b %Y %T %Z"
+d_fmt         "%Y.%m.%d"
+% Used by date(1). Equivalent to d_t_fmt, tho in en_US it has always differed slightly.
+date_fmt      "%a %d %b %Y %T %Z"
+END LC_TIME
+
+LC_MESSAGES
+copy "da_DK"
+END LC_MESSAGES
+
+LC_PAPER
+copy "en_US"
+END LC_PAPER
+
+LC_TELEPHONE
+copy "en_US"
+tel_int_fmt "+%c %a %l"
+tel_dom_fmt "%a %l"
+END LC_TELEPHONE
+
+LC_MEASUREMENT
+copy "en_US"
+END LC_MEASUREMENT
+
+LC_NAME
+copy "en_US"
+END LC_NAME
+
+LC_ADDRESS
+copy "en_US"
+END LC_ADDRESS

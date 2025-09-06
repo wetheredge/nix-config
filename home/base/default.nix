@@ -9,6 +9,7 @@
   ];
 
   home = {
+    language.base = "da_US.UTF-8@wren";
     username = vars.user;
     homeDirectory = "/home/${vars.user}";
     preferXdgDirectories = true;

@@ -7,6 +7,8 @@
   programs.firefox = {
     enable = true;
 
+    languagePacks = ["da" "en-US"];
+
     policies = {
       # Ads/tracking/telemetry
       DisableFirefoxStudies = true;
@@ -73,6 +75,13 @@
         "browser.newtabpage.enabled" = locked false;
 
         "browser.ml.chat.enabled" = locked false;
+
+        # English only for websites
+        "intl.accept_languages" = locked "en-us";
+        # Danish or English for UI
+        "intl.locale.requested" = locked "da,en-US";
+        # Use system locale format for dates, etc
+        "intl.regional_prefs.use_os_locales" = locked true;
       };
     };
 

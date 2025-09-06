@@ -55,6 +55,8 @@
             inputs.impermanence.nixosModules.impermanence
             inputs.home-manager.nixosModules.home-manager
 
+            ./overlays/locales
+
             ./system/base.nix
             ./hosts/${host}
 

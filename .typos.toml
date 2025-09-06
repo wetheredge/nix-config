@@ -1,2 +1,8 @@
+[default]
+locale = "en-us"
+
 [default.extend-identifiers]
 crypted = "crypted"
+
+[files]
+extend-exclude = ["overlays/locales/*", "!overlays/locales/*.nix"]
