@@ -49,6 +49,10 @@
         "Documents"
         "Pictures"
         "Projects"
+
+        ".steam"
+        ".local/share/Steam"
+        ".local/share/Replicube"
       ];
       files = [
         ".cache/kickoff/menu.csv"

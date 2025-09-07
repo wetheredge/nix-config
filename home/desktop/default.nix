@@ -12,6 +12,7 @@
     brightnessctl
     swayimg
     wev
+    xwayland-satellite
 
     # For rbw
     pinentry-curses

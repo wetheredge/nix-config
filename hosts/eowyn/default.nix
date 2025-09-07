@@ -11,6 +11,7 @@
     ./impermanence.nix
 
     ../../system/desktop
+    ../../system/gaming.nix
   ];
 
   boot.loader = {
