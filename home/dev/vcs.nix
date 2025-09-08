@@ -37,6 +37,11 @@
         inherit (vars) name email;
       };
 
+      ui = {
+        diff-editor = ":builtin";
+        pager = "less -FRX";
+      };
+
       git = {
         # TODO(v0.30.0): remove
         write-change-id-header = true;
