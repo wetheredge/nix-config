@@ -5,10 +5,6 @@ hotkey-overlay {
     skip-at-startup
 }
 
-environment {
-    DIPSPLAY ":0"
-}
-
 input {
     keyboard {
     	xkb {
