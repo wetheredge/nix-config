@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    impermanence.url = "github:nix-community/impermanence";
+    preservation.url = "github:nix-community/preservation";
 
     treefmt.url = "github:numtide/treefmt-nix";
   };
@@ -52,7 +52,7 @@
           specialArgs = args.nixos;
           modules = [
             inputs.disko.nixosModules.disko
-            inputs.impermanence.nixosModules.impermanence
+            inputs.preservation.nixosModules.preservation
             inputs.home-manager.nixosModules.home-manager
 
             ./overlays/locales
