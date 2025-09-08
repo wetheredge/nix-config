@@ -14,6 +14,8 @@
 
   console.earlySetup = true;
 
+  security.sudo-rs.enable = true;
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.systemPackages = with pkgs; [
