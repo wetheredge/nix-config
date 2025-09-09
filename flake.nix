@@ -36,7 +36,6 @@
     };
 
     hosts = {
-      deagol = "x86_64-linux";
       eowyn = "x86_64-linux";
     };
 
