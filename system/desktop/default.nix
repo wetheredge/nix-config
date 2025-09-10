@@ -1,5 +1,6 @@
 {
   imports = [
+    ./greeter.nix
     ./ios.nix
     ./keyd.nix
     ./pam-fprint.nix
@@ -25,6 +26,5 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  services.displayManager.ly.enable = true;
   programs.niri.enable = true;
 }
