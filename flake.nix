@@ -54,6 +54,8 @@
             inputs.preservation.nixosModules.preservation
             inputs.home-manager.nixosModules.home-manager
 
+            ./modules/nixos
+
             ./overlays/locales
 
             ./presets/nixos/base.nix
@@ -66,6 +68,11 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = args.home;
+
+                sharedModules = [
+                  ./modules/home
+                ];
+
                 users.${vars.user}.imports = [
                   ./presets/home/base
                   ./hosts/${host}/home.nix

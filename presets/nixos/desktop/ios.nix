@@ -10,4 +10,6 @@
       python-pkgs.iosbackup
     ]))
   ];
+
+  preservation.preserveAt.state.directories = ["/var/lib/lockdown"];
 }

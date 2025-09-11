@@ -11,5 +11,9 @@
       });
     };
 
-  config.security.pam.services.sudo.fprintAuth = true;
+  config = {
+    security.pam.services.sudo.fprintAuth = true;
+
+    preservation.preserveAt.state.directories = ["/var/lib/fprint"];
+  };
 }

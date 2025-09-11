@@ -1,9 +1,9 @@
-{
+{vars, ...}: {
   imports = [
+    ./fprint.nix
     ./greeter.nix
     ./ios.nix
     ./keyd.nix
-    ./pam-fprint.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -25,6 +25,10 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
+
+  networking.networkmanager.enable = true;
+  users.users.${vars.user}.extraGroups = ["networkmanager"];
+  preservation.preserveAt.state.directories = ["/etc/NetworkManager/system-connections"];
 
   programs.niri.enable = true;
 }

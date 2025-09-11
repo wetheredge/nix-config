@@ -38,4 +38,8 @@
       };
     };
   };
+
+  preservation.preserveAt.state.files = [
+    ".cache/kickoff/menu.csv"
+  ];
 }

@@ -8,7 +8,6 @@
 
     ./disks.nix
     ./hardware-configuration.nix
-    ./impermanence.nix
 
     ../../presets/nixos/desktop
     ../../presets/nixos/gaming.nix
@@ -28,6 +27,21 @@
     crypted.allowDiscards = true;
   };
 
+  settings.rollback = {
+    enable = true;
+    device = "/dev/mapper/crypted";
+    after = ["cryptsetup.target"];
+  };
+
+  preservation = {
+    enable = true;
+    preserveAt = {
+      data.persistentStoragePath = "/state";
+      state.persistentStoragePath = "/state";
+      cache.persistentStoragePath = "/state";
+    };
+  };
+
   services.fprintd = {
     enable = true;
     tod = {
@@ -39,19 +53,6 @@
   environment.etc = {
     machine-info.text = "PRETTY_HOSTNAME=Éowyn";
   };
-
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true; # wpa_supplicant
-  networking.networkmanager.enable = true;
-  users.users.wren.extraGroups = ["networkmanager"];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   system.stateVersion = "25.05";
 }
