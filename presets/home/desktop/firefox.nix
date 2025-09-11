@@ -102,7 +102,7 @@
             inherit template;
             params =
               lib.mapAttrsToList
-              (name: value: {inherit name value;})
+              lib.nameValuePair
               ({"${terms}" = "{searchTerms}";} // extraParams);
           };
           searchNixosOrg = aliases: type: {
