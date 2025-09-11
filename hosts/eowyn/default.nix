@@ -10,8 +10,8 @@
     ./hardware-configuration.nix
     ./impermanence.nix
 
-    ../../system/desktop
-    ../../system/gaming.nix
+    ../../presets/nixos/desktop
+    ../../presets/nixos/gaming.nix
   ];
 
   boot.loader = {

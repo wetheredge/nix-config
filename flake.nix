@@ -56,7 +56,7 @@
 
             ./overlays/locales
 
-            ./system/base.nix
+            ./presets/nixos/base.nix
             ./hosts/${host}
 
             {networking.hostName = host;}
@@ -67,7 +67,7 @@
                 useUserPackages = true;
                 extraSpecialArgs = args.home;
                 users.${vars.user}.imports = [
-                  ./home/base
+                  ./presets/home/base
                   ./hosts/${host}/home.nix
                 ];
               };
