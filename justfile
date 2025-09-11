@@ -4,6 +4,9 @@ _default:
 switch:
     nixos-rebuild switch --flake .
 
+boot:
+    nixos-rebuild boot --flake .
+
 dry-build:
     nixos-rebuild dry-build --flake .
 
