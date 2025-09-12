@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   imports = [
+    ./beancount.nix
+    ./eww
     ./firefox.nix
     ./kickoff
-    ./eww
   ];
 
   home.packages = with pkgs; [
