@@ -29,19 +29,11 @@
     crypted.allowDiscards = true;
   };
 
+  preservation.enable = true;
   settings.rollback = {
     enable = true;
     device = "/dev/mapper/crypted";
     after = ["cryptsetup.target"];
-  };
-
-  preservation = {
-    enable = true;
-    preserveAt = {
-      data.persistentStoragePath = "/state";
-      state.persistentStoragePath = "/state";
-      cache.persistentStoragePath = "/state";
-    };
   };
 
   services.fprintd = {

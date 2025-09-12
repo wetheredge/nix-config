@@ -34,12 +34,12 @@
                     mountpoint = "/nix";
                     mountOptions = ["compress=zstd" "noatime"];
                   };
-                  "/state" = {
-                    mountpoint = "/state";
+                  "/preserve" = {
+                    mountpoint = "/preserve";
                     mountOptions = ["compress=zstd" "noatime"];
                   };
-                  "/state/swap" = {
-                    mountpoint = "/state/swap";
+                  "/preserve/swap" = {
+                    mountpoint = "/preserve/swap";
                     mountOptions = ["nodatacow" "noatime"];
                     swap.swapfile.size = "10G";
                   };
@@ -52,5 +52,5 @@
     };
   };
 
-  fileSystems."/state".neededForBoot = true;
+  fileSystems."/preserve".neededForBoot = true;
 }
