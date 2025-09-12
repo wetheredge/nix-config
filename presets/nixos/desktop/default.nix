@@ -31,4 +31,9 @@
   preservation.preserveAt.state.directories = ["/etc/NetworkManager/system-connections"];
 
   programs.niri.enable = true;
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }
