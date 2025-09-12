@@ -13,6 +13,8 @@
     ../../presets/nixos/gaming.nix
   ];
 
+  environment.machine-info.prettyHostname = "Éowyn";
+
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot = {
@@ -48,10 +50,6 @@
       enable = true;
       driver = pkgs.libfprint-2-tod1-goodix;
     };
-  };
-
-  environment.etc = {
-    machine-info.text = "PRETTY_HOSTNAME=Éowyn";
   };
 
   system.stateVersion = "25.05";
