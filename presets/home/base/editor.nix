@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -35,9 +39,9 @@
       };
     };
 
-    extraPackages = with pkgs; [
-      nixd
-    ];
+    extraPackages =
+      [pkgs.nixd]
+      ++ config.settings.languageServers;
   };
   programs.fish.shellAbbrs.e = "hx";
 }
