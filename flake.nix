@@ -40,6 +40,7 @@
 
     hosts = {
       eowyn = "x86_64-linux";
+      shelob = "x86_64-linux";
     };
 
     eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});

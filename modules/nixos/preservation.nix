@@ -10,7 +10,7 @@ in {
     enable = mkOption {
       type = types.bool;
       description = "Enable sysroot rollback on boot";
-      default = mkDefault config.preservation.enable;
+      default = config.preservation.enable;
     };
 
     device = mkOption {

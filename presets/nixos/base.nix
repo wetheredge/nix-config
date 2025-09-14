@@ -38,7 +38,7 @@
       isNormalUser = true;
       extraGroups = ["wheel"];
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+q0xtKrTMzJLwr1rRNcJJzpP/FL1/ugnNF6WC3rE7M me@wetheredge.com"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcpiTcBohkLUbAt/dnk/FGlViXBwMBQpfx5lLP55HdM wren@eowyn"
       ];
     };
   };
