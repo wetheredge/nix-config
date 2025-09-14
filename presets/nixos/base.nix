@@ -49,6 +49,7 @@
   # TODO: set programs.ssh.knownHosts from GitHub api?
 
   services.tailscale.enable = true;
+  preservation.preserveAt.state.directories = ["/var/lib/tailscale"];
 
   services.fwupd.enable = true;
 }
