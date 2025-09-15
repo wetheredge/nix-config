@@ -10,6 +10,8 @@
 
   boot.loader.timeout = 0;
 
+  services.fwupd.enable = true;
+
   time.timeZone = "America/New_York";
 
   # CUPS

@@ -50,6 +50,4 @@
 
   services.tailscale.enable = true;
   preservation.preserveAt.state.directories = ["/var/lib/tailscale"];
-
-  services.fwupd.enable = true;
 }
