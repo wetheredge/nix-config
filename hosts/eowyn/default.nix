@@ -17,11 +17,8 @@
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
-    systemd-boot = {
-      enable = true;
-      # Disallow editing kernel command-line to prevent easy root via init=/bin/sh
-      editor = false;
-    };
+    # Disallow editing kernel command-line to prevent easy root via init=/bin/sh
+    systemd-boot.editor = false;
   };
 
   # Pass through TRIM requests at a slight security risk

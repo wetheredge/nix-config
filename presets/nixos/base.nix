@@ -12,8 +12,12 @@
     };
   };
 
+  boot = {
+    initrd.systemd.enable = true;
+    loader.systemd-boot.enable = true;
+  };
+
   console.earlySetup = true;
-  boot.initrd.systemd.enable = true;
 
   security.sudo-rs.enable = true;
 
