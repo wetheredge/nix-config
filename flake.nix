@@ -18,7 +18,10 @@
 
     preservation.url = "github:nix-community/preservation";
 
-    treefmt.url = "github:numtide/treefmt-nix";
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
