@@ -16,11 +16,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     preservation.url = "github:nix-community/preservation";
 
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    secrets = {
+      url = "git+ssh://git@github.com/wetheredge/nix-secrets.git?shallow=1";
+      flake = false;
     };
   };
 
@@ -34,7 +44,7 @@
 
     args = rec {
       base = {inherit vars;};
-      nixos = base // {inherit (inputs) nixos-hardware;};
+      nixos = base // {inherit (inputs) secrets nixos-hardware;};
       home = base;
     };
 
@@ -55,10 +65,12 @@
           specialArgs = args.nixos;
           modules = [
             inputs.disko.nixosModules.disko
+            inputs.ragenix.nixosModules.default
             inputs.preservation.nixosModules.preservation
             inputs.home-manager.nixosModules.home-manager
 
             ./modules/nixos
+            ./secrets.nix
 
             ./overlays/locales
 
