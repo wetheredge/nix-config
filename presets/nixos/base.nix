@@ -34,9 +34,9 @@
   users = {
     mutableUsers = false;
     users.${vars.user} = {
+      inherit (vars) hashedPassword;
       isNormalUser = true;
       extraGroups = ["wheel"];
-      password = "wren";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+q0xtKrTMzJLwr1rRNcJJzpP/FL1/ugnNF6WC3rE7M me@wetheredge.com"
       ];
