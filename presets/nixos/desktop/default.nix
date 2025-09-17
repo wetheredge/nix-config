@@ -32,6 +32,8 @@
   users.users.${vars.user}.extraGroups = ["networkmanager"];
   preservation.preserveAt.state.directories = ["/etc/NetworkManager/system-connections"];
 
+  services.tailscale.useRoutingFeatures = "client";
+
   programs.niri.enable = true;
 
   programs.appimage = {
