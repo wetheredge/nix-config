@@ -23,5 +23,8 @@
     };
   };
 
-  services.tailscale.useRoutingFeatures = "server";
+  services.tailscale = {
+    authKeyFile = config.age.secrets.tailscale-auth-key.path;
+    useRoutingFeatures = "server";
+  };
 }

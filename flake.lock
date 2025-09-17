@@ -251,10 +251,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1758143381,
-        "narHash": "sha256-pYrTYqwuDiJxlVidxpS70PiKg+gbGZpoSuP/w8ncX00=",
+        "lastModified": 1758150016,
+        "narHash": "sha256-KPA1N+YosB8T4wOS4VjfUAYZka71MQQ9l35A/QLASZc=",
         "ref": "refs/heads/main",
-        "rev": "2305584ec8f1cd84bfa3f121da6e472bfee4d910",
+        "rev": "ceb662ba8c8d83423fa8ba1ed8c2b19cb534c34b",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/wetheredge/nix-secrets.git"
