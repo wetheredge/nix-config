@@ -1,10 +1,18 @@
-{vars, ...}: {
+{
+  config,
+  vars,
+  ...
+}: {
   imports = [
     ./fprint.nix
     ./greeter.nix
     ./ios.nix
     ./keyd.nix
   ];
+
+  nix.extraOptions = ''
+    secret-key-files = ${config.age.secrets.nix-secret-key.path}
+  '';
 
   nixpkgs.config.allowUnfree = true;
 

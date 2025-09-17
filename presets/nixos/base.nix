@@ -8,7 +8,12 @@
   sshHostKey = "/etc/ssh/ssh_host_ed25519_key";
 in {
   nix = {
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings = {
+      trusted-public-keys = [
+        "wetheredge.com-0:4JvkPV66FEugl7ay+F0dFqR5SXcMMfSY245ZS2QYBmA="
+      ];
+      experimental-features = ["nix-command" "flakes"];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
