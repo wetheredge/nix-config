@@ -49,8 +49,17 @@
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
+    # Use pregenerated keys only
+    hostKeys = [];
   };
   # TODO: set programs.ssh.knownHosts from GitHub api?
+  preservation.preserveAt.state.files = [
+    "/etc/ssh/ssh_host_ed25519_key.pub"
+    {
+      file = "/etc/ssh/ssh_host_ed25519_key";
+      mode = "0600";
+    }
+  ];
 
   services.tailscale.enable = true;
   preservation.preserveAt.state.directories = ["/var/lib/tailscale"];
