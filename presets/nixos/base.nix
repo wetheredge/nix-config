@@ -1,8 +1,12 @@
 {
+  config,
+  lib,
   pkgs,
   vars,
   ...
-}: {
+}: let
+  sshHostKey = "/etc/ssh/ssh_host_ed25519_key";
+in {
   nix = {
     settings.experimental-features = ["nix-command" "flakes"];
     gc = {
@@ -54,12 +58,16 @@
   };
   # TODO: set programs.ssh.knownHosts from GitHub api?
   preservation.preserveAt.state.files = [
-    "/etc/ssh/ssh_host_ed25519_key.pub"
+    "${sshHostKey}.pub"
     {
-      file = "/etc/ssh/ssh_host_ed25519_key";
+      file = sshHostKey;
       mode = "0600";
     }
   ];
+
+  age.identityPaths = let
+    prefix = lib.optionalString config.preservation.enable config.preservation.preserveAt.state.persistentStoragePath;
+  in [(prefix + sshHostKey)];
 
   services.tailscale.enable = true;
   preservation.preserveAt.state.directories = ["/var/lib/tailscale"];

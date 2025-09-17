@@ -28,10 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets = {
-      url = "git+ssh://git@github.com/wetheredge/nix-secrets.git?shallow=1";
-      flake = false;
-    };
+    secrets.url = "git+ssh://git@github.com/wetheredge/nix-secrets.git?shallow=1";
   };
 
   outputs = inputs @ {
@@ -44,7 +41,7 @@
 
     args = rec {
       base = {inherit vars;};
-      nixos = base // {inherit (inputs) secrets nixos-hardware;};
+      nixos = base // {inherit (inputs) nixos-hardware;};
       home = base;
     };
 
@@ -66,11 +63,11 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.ragenix.nixosModules.default
+            inputs.secrets.nixosModules.secrets
             inputs.preservation.nixosModules.preservation
             inputs.home-manager.nixosModules.home-manager
 
             ./modules/nixos
-            ./secrets.nix
 
             ./overlays/locales
 
