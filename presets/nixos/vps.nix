@@ -15,16 +15,17 @@
       "2620:fe::fe"
       "2620:fe::9"
     ];
-    firewall = {
-      trustedInterfaces = [config.services.tailscale.interfaceName];
-      interfaces.eth0 = {
-        allowedTCPPorts = [22];
-      };
-    };
+    firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
   };
+
+  # Use tailscale ssh instead
+  services.openssh.openFirewall = false;
 
   services.tailscale = {
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
     useRoutingFeatures = "server";
+    extraUpFlags = [
+      "--ssh"
+    ];
   };
 }
