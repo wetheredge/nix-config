@@ -19,6 +19,13 @@
     pinentry-curses
   ];
 
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    compression = true;
+  };
+  services.ssh-agent.enable = true;
+
   xdg.configFile."niri/config.kdl".source = ./niri.kdl;
 
   # TODO: configure with nix
