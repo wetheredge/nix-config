@@ -76,26 +76,10 @@
     ];
   };
 
-  preservation.preserveAt = {
-    data = {
-      directories = [
-        {
-          directory = ".ssh";
-          mode = "0700";
-        }
-        "Documents"
-        "Pictures"
-        "Projects"
-      ];
-      files = [
-        ".config/rbw/config.json"
-      ];
-    };
-    state.files = [
-      {
-        file = ".local/share/rbw/device_id";
-        mode = "0600";
-      }
-    ];
-  };
+  preservation.preserveAt.data.directories = [
+    {
+      directory = ".ssh";
+      mode = "0700";
+    }
+  ];
 }

@@ -12,4 +12,8 @@
   programs.helix.extraPackages = with pkgs; [
     marksman
   ];
+
+  preservation.preserveAt.data.directories = [
+    "Projects"
+  ];
 }

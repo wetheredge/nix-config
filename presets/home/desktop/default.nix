@@ -35,4 +35,22 @@
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
+
+  preservation.preserveAt = {
+    data = {
+      directories = [
+        "Documents"
+        "Pictures"
+      ];
+      files = [
+        ".config/rbw/config.json"
+      ];
+    };
+    state.files = [
+      {
+        file = ".local/share/rbw/device_id";
+        mode = "0600";
+      }
+    ];
+  };
 }
