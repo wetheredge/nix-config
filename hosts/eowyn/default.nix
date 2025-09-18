@@ -30,7 +30,6 @@
   settings.rollback = {
     enable = true;
     device = "/dev/mapper/crypted";
-    after = ["cryptsetup.target"];
   };
 
   services.fprintd = {

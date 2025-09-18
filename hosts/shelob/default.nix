@@ -12,7 +12,6 @@
   settings.rollback = {
     # enable = true;
     device = "/dev/disk/by-label/nixos";
-    after = ["cryptsetup.target"];
   };
 
   system.stateVersion = "25.05";

@@ -27,11 +27,6 @@ in {
       description = "Name of the directory to keep old roots in";
       default = "root-backups";
     };
-
-    after = mkOption {
-      type = types.listOf types.str;
-      description = "Which unit(s) to schedule sysroot rollback after";
-    };
   };
 
   config = {
@@ -41,14 +36,15 @@ in {
     boot.initrd.systemd.services.rollback = lib.mkIf rollbackCfg.enable {
       description = "Rollback sysroot";
       wantedBy = ["initrd.target"];
+      after = ["initrd-root-device.target"];
       before = ["sysroot.mount"];
-      inherit (rollbackCfg) after;
       unitConfig.DefaultDependencies = "no";
 
       serviceConfig.Type = "oneshot";
       path = with pkgs; [
         btrfs-progs
         coreutils
+        findutils
         util-linuxMinimal
       ];
       script = ''
