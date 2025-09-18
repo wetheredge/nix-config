@@ -8,10 +8,10 @@
     ./disks.nix
   ];
 
-  # preservation.enable = true;
+  preservation.enable = true;
   settings.rollback = {
-    # enable = true;
-    device = "/dev/disk/by-label/nixos";
+    enable = true;
+    device = "/dev/disk/by-partlabel/disk-main-root";
   };
 
   system.stateVersion = "25.05";
