@@ -10,6 +10,7 @@
     just
     nix-tree
     nvd
+    ragenix
 
     brightnessctl
     swayimg
