@@ -1,4 +1,8 @@
-{vars, ...}: {
+{
+  vars,
+  pkgs-unstable,
+  ...
+}: {
   programs.git = {
     enable = true;
     userName = vars.name;
@@ -32,6 +36,7 @@
 
   programs.jujutsu = {
     enable = true;
+    package = pkgs-unstable.jujutsu;
     settings = {
       user = {
         inherit (vars) name email;
@@ -42,14 +47,10 @@
         pager = "less -FRX";
       };
 
-      git = {
-        # TODO(v0.30.0): remove
-        write-change-id-header = true;
+      # Enable colocated git repos by default
+      git.colocate = true;
 
-        # TODO(v0.31.0): replace with
-        # templates.git_push_bookmark = "\"${vars.devUser}/push-\" ++ change_id.short()";
-        push-bookmark-prefix = "${vars.devUser}/push-";
-      };
+      templates.git_push_bookmark = ''"${vars.devUser}/push-" ++ change_id.short()'';
 
       revset-aliases = {
         "ahead()" = "remote_bookmarks()..bookmarks()";

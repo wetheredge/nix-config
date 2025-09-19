@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -39,8 +40,11 @@
     inherit (nixpkgs) lib;
     vars = import ./vars.nix;
 
-    args = rec {
-      base = {inherit vars;};
+    args = system: rec {
+      base = {
+        inherit vars;
+        pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+      };
       nixos = base // {inherit (inputs) nixos-hardware;};
       home = base;
     };
@@ -50,7 +54,7 @@
       shelob = "x86_64-linux";
     };
 
-    eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+    eachSystem = f: lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
     treefmtEval = eachSystem (pkgs: inputs.treefmt.lib.evalModule pkgs ./treefmt.nix);
   in {
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
@@ -59,7 +63,7 @@
         name = host;
         value = lib.nixosSystem {
           inherit system;
-          specialArgs = args.nixos;
+          specialArgs = (args system).nixos;
           modules = [
             inputs.disko.nixosModules.disko
             inputs.ragenix.nixosModules.default
@@ -80,7 +84,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = args.home;
+                extraSpecialArgs = (args system).home;
 
                 sharedModules = [
                   ./modules/home
