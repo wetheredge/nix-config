@@ -20,6 +20,14 @@
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.agenix.follows = "agenix";
+    };
+    # Pull in latest changes to agenix module used by ragenix
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+      inputs.home-manager.follows = "home-manager";
     };
 
     preservation.url = "github:nix-community/preservation";
