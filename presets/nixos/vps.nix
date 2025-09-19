@@ -28,4 +28,6 @@
       "--ssh"
     ];
   };
+
+  documentation.enable = false;
 }

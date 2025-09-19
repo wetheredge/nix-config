@@ -8,6 +8,7 @@
 
   home.packages = with pkgs; [
     just
+    nix-tree
     nvd
 
     brightnessctl

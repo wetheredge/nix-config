@@ -35,9 +35,13 @@ in {
   environment.systemPackages = with pkgs; [
     git
     micro
-    wget
+    rsync
   ];
   environment.variables.EDITOR = "micro";
+
+  # Disable default packages
+  environment.defaultPackages = [];
+  programs.nano.enable = false;
 
   services.userborn.enable = true;
   users = {
