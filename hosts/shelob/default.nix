@@ -6,6 +6,8 @@
     ../../presets/nixos/vps.nix
 
     ./disks.nix
+
+    ./server.nix
   ];
 
   preservation.enable = true;
