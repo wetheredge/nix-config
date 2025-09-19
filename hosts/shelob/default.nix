@@ -8,6 +8,7 @@
     ./disks.nix
 
     ./server.nix
+    ./pds.nix
   ];
 
   preservation.enable = true;
