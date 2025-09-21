@@ -32,6 +32,8 @@
 
     preservation.url = "github:nix-community/preservation";
 
+    niri.url = "github:sodiboo/niri-flake";
+
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,11 +79,13 @@
             inputs.ragenix.nixosModules.default
             inputs.secrets.nixosModules.secrets
             inputs.preservation.nixosModules.preservation
+            inputs.niri.nixosModules.niri
             inputs.home-manager.nixosModules.home-manager
 
             ./modules/nixos
 
             ./overlays/locales
+            {nixpkgs.overlays = [inputs.niri.overlays.niri];}
 
             ./presets/nixos/base.nix
             ./hosts/${host}

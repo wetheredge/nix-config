@@ -4,6 +4,7 @@
     ./eww
     ./firefox.nix
     ./kickoff
+    ./niri.nix
   ];
 
   home.packages = with pkgs; [
@@ -27,8 +28,6 @@
     compression = true;
   };
   services.ssh-agent.enable = true;
-
-  xdg.configFile."niri/config.kdl".source = ./niri.kdl;
 
   # TODO: configure with nix
   programs.rbw.enable = true;
