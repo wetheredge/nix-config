@@ -60,29 +60,27 @@
 
       HttpsOnlyMode = "force_enabled";
 
-      PromptForDownloadLocation = true;
-
       # Prevent these from getting changed by FF
-      Preferences = let
-        locked = v: {
+      Preferences =
+        lib.mapAttrs (_: v: {
           Value = v;
           Status = "locked";
+        }) {
+          "browser.aboutConfig.showWarning" = false;
+
+          "browser.startup.homepage" = "about:blank";
+          "browser.newtabpage.enabled" = false;
+
+          "browser.ml.chat.enabled" = false;
+
+          # Danish or English for UI
+          "intl.locale.requested" = "da,en-US";
+          # English only for websites
+          "intl.accept_languages" = "en-us";
+          "browser.translations.neverTranslateLanguages" = "en";
+          # Use system locale format for dates, etc
+          "intl.regional_prefs.use_os_locales" = true;
         };
-      in {
-        "browser.aboutConfig.showWarning" = locked false;
-
-        "browser.startup.homepage" = locked "about:blank";
-        "browser.newtabpage.enabled" = locked false;
-
-        "browser.ml.chat.enabled" = locked false;
-
-        # English only for websites
-        "intl.accept_languages" = locked "en-us";
-        # Danish or English for UI
-        "intl.locale.requested" = locked "da,en-US";
-        # Use system locale format for dates, etc
-        "intl.regional_prefs.use_os_locales" = locked true;
-      };
     };
 
     profiles.default = {
@@ -164,4 +162,8 @@
       };
     };
   };
+
+  preservation.preserveAt.state.directories = [
+    ".mozilla"
+  ];
 }
