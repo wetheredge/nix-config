@@ -22,6 +22,8 @@
     pinentry-curses
   ];
 
+  xdg.userDirs.enable = true;
+
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
