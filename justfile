@@ -4,11 +4,20 @@ _default:
 switch:
     nixos-rebuild switch --flake .
 
+switch-for host:
+    nixos-rebuild switch --flake .#{{ host }} --target-host {{ host }} --use-remote-sudo
+
 boot:
     nixos-rebuild boot --flake .
 
-dry-build:
-    nixos-rebuild dry-build --flake .
+boot-for host:
+    nixos-rebuild boot --flake .#{{ host }} --target-host {{ host }} --use-remote-sudo
+
+dry-build host=`hostname`:
+    nixos-rebuild dry-build --flake .#{{host}}
+
+build host=`hostname`:
+    nixos-rebuild build --flake .#{{host}}
 
 diff:
     nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result
