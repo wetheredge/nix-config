@@ -34,6 +34,11 @@
 
     niri.url = "github:sodiboo/niri-flake";
 
+    tangled = {
+      url = "git+https://tangled.org/@tangled.org/core";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,6 +85,7 @@
             inputs.secrets.nixosModules.secrets
             inputs.preservation.nixosModules.preservation
             inputs.niri.nixosModules.niri
+            inputs.tangled.nixosModules.knot
             inputs.home-manager.nixosModules.home-manager
 
             ./modules/nixos

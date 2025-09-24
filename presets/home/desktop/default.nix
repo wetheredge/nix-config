@@ -28,6 +28,7 @@
     enable = true;
     addKeysToAgent = "yes";
     compression = true;
+    matchBlocks."knot.wetheredge.com".hostname = "shelob";
   };
   services.ssh-agent.enable = true;
 

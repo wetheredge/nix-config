@@ -14,10 +14,10 @@ boot-for host:
     nixos-rebuild boot --flake .#{{ host }} --target-host {{ host }} --use-remote-sudo
 
 dry-build host=`hostname`:
-    nixos-rebuild dry-build --flake .#{{host}}
+    nixos-rebuild dry-build --flake .#{{ host }}
 
 build host=`hostname`:
-    nixos-rebuild build --flake .#{{host}}
+    nixos-rebuild build --flake .#{{ host }}
 
 diff:
     nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result
