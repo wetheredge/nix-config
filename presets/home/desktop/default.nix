@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./beancount.nix
     ./eww
@@ -40,11 +45,15 @@
     extraConfig = builtins.readFile ./wezterm.lua;
   };
 
-  preservation.preserveAt = {
+  preservation.preserveAt = with config.xdg.userDirs; let
+    toRelative = lib.removePrefix config.home.homeDirectory;
+  in {
     data = {
       directories = [
-        "Documents"
-        "Pictures"
+        (toRelative documents)
+        (toRelative pictures)
+        "nix/config"
+        "nix/secrets"
       ];
       files = [
         ".config/rbw/config.json"
