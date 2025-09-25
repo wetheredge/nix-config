@@ -1,6 +1,7 @@
 {
   imports = [
-    ./preservation.nix
+    ./backup.nix
     ./machine-info.nix
+    ./preservation.nix
   ];
 }

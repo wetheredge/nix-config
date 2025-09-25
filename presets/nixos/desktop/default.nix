@@ -22,6 +22,12 @@
 
   time.timeZone = "America/New_York";
 
+  services.wren.backup = {
+    enable = true;
+    passwordFile = config.age.secrets.backup-desktop-password.path;
+    envFile = config.age.secrets.backup-desktop-env.path;
+  };
+
   # CUPS
   # services.printing.enable = true;
 
