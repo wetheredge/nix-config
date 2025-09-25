@@ -11,6 +11,22 @@
     ];
   };
 
+  # Various GUI or interactive features not needed on a VPS; largely based on
+  # <https://github.com/nix-community/srvos/blob/c04379f95fca70b38cdd45a1a7affe6d4226912b/nixos/server/default.nix>
+  documentation.enable = false;
+  environment.stub-ld.enable = false;
+  fonts.fontconfig.enable = false;
+  programs.command-not-found.enable = false;
+  xdg = {
+    autostart.enable = false;
+    icons.enable = false;
+    menus.enable = false;
+    mime.enable = false;
+    sounds.enable = false;
+  };
+
+  time.timeZone = "UTC";
+
   networking = {
     # Quad9
     nameservers = [
@@ -59,6 +75,4 @@
       FixedRandomDelay = true;
     };
   };
-
-  documentation.enable = false;
 }
