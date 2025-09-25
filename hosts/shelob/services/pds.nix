@@ -1,10 +1,15 @@
-{config, ...}: let
+{
+  config,
+  pkgs-unstable,
+  ...
+}: let
   hostname = "pds.wetheredge.com";
   user = "pds";
   group = "pds";
 in {
   services.pds = {
     enable = true;
+    package = pkgs-unstable.bluesky-pds;
     pdsadmin.enable = true;
     settings.PDS_HOSTNAME = hostname;
     environmentFiles = [config.age.secrets.pds-env.path];
