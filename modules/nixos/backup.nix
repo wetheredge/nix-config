@@ -66,6 +66,12 @@ in {
       inherit (toml) type;
       default = {};
     };
+
+    timerConfig = mkOption {
+      # FIXME: proper type?
+      type = types.nullOr types.attrs;
+      default = null;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -102,9 +108,35 @@ in {
         (pkgs.writeShellScriptBin "backup" ''
           set -a # auto export
           ${lib.optionalString (cfg.envFile != null) "source ${cfg.envFile}"}
-          exec ${cfg.rusticPackage}/bin/rustic -P system "$@"
+          args=("$@")
+          if [[ "$args" == backup* ]]; then
+            args+=("--tag=manual")
+          fi
+          exec ${cfg.rusticPackage}/bin/rustic -P system "''${args[@]}"
         '')
       ];
+    };
+
+    systemd = lib.mkIf (cfg.timerConfig != null) {
+      services.backup = {
+        description = "Run a system backup";
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+
+        serviceConfig =
+          {
+            Type = "oneshot";
+            ExecStart = "${cfg.rusticPackage}/bin/rustic -P system backup --tag scheduled";
+          }
+          // lib.optionalAttrs (cfg.envFile != null) {
+            EnvironmentFile = cfg.envFile;
+          };
+      };
+
+      timers.backup = {
+        wantedBy = ["timers.target"];
+        inherit (cfg) timerConfig;
+      };
     };
 
     preservation.preserveAt.cache.directories = [

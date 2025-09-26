@@ -37,6 +37,11 @@
         keep-monthly = -1;
       };
     };
+    timerConfig = {
+      OnCalendar = "daily";
+      AccuracySec = "1h";
+      Persistent = true;
+    };
   };
 
   # CUPS

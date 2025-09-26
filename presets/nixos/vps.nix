@@ -51,6 +51,13 @@
         keep-monthly = -1;
       };
     };
+
+    timerConfig = {
+      OnCalendar = "hourly";
+      AccuracySec = "5m";
+      RandomizedDelaySec = "15m";
+      FixedRandomDelay = true;
+    };
   };
 
   documentation.enable = false;
