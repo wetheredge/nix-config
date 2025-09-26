@@ -12,34 +12,65 @@ in {
 
     rusticPackage = mkPackageOption pkgs "rustic" {};
 
-    passwordFile = mkOption {
-      type = types.str;
-      description = "Path to a file containing the password used for all repositories";
-    };
-
     envFile = mkOption {
       type = types.nullOr types.str;
       default = null;
     };
 
-    cacheDir = mkOption {
-      type = types.str;
-      default = "/var/cache/backup";
+    config = {
+      repository = {
+        repository = mkOption {
+          type = types.str;
+        };
+        password-file = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
+        cache-dir = mkOption {
+          type = types.str;
+          default = "/var/cache/backup";
+        };
+      };
+
+      forget = let
+        times = ["minutely" "hourly" "daily" "weekly" "monthly" "quarterly" "half-yearly" "yearly"];
+      in
+        {
+          prune = mkOption {
+            type = types.bool;
+            default = true;
+          };
+          keep-tags = mkOption {
+            type = types.listOf types.str;
+            default = [];
+          };
+        }
+        // lib.listToAttrs (lib.map (name: {
+          name = "keep-${name}";
+          value = mkOption {
+            type = types.nullOr types.int;
+            default = null;
+          };
+        }) (lib.flatten ["last" times]))
+        // lib.listToAttrs (lib.map (name: {
+            name = "keep-within-${name}";
+            value = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+          })
+          times);
     };
 
-    settings = mkOption {
+    finalConfig = mkOption {
       inherit (toml) type;
       default = {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    services.wren.backup.settings = {
-      repository = {
-        repository = "opendal:b2";
-        password-file = cfg.passwordFile;
-        cache-dir = cfg.cacheDir;
-      };
+    services.wren.backup.finalConfig = {
+      inherit (lib.filterAttrsRecursive (_: v: v != null) cfg.config) repository forget;
 
       backup = {
         exclude-if-present = ["CACHEDIR.TAG" ".rustic-skip"];
@@ -62,18 +93,10 @@ in {
           }
         ];
       };
-
-      forget = {
-        forget = true;
-        keep-last = 10;
-        keep-within-daily = "2 weeks";
-        keep-within-weekly = "2 months";
-        keep-monthly = -1;
-      };
     };
 
     environment = {
-      etc."rustic/system.toml".source = toml.generate "system.toml" cfg.settings;
+      etc."rustic/system.toml".source = toml.generate "system.toml" cfg.finalConfig;
 
       systemPackages = [
         (pkgs.writeShellScriptBin "backup" ''
@@ -85,7 +108,7 @@ in {
     };
 
     preservation.preserveAt.cache.directories = [
-      cfg.cacheDir
+      cfg.config.repository.cache-dir
     ];
   };
 }

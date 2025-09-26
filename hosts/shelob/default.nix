@@ -1,5 +1,4 @@
 {
-  config,
   modulesPath,
   ...
 }: {
@@ -15,12 +14,6 @@
     ./pds.nix
     ./server.nix
   ];
-
-  services.wren.backup = {
-    enable = true;
-    passwordFile = config.age.secrets.backup-shelob-password.path;
-    envFile = config.age.secrets.backup-shelob-env.path;
-  };
 
   preservation.enable = true;
   settings.rollback = {

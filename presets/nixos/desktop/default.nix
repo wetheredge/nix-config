@@ -24,8 +24,19 @@
 
   services.wren.backup = {
     enable = true;
-    passwordFile = config.age.secrets.backup-desktop-password.path;
     envFile = config.age.secrets.backup-desktop-env.path;
+    config = {
+      repository = {
+        repository = "opendal:b2";
+        password-file = config.age.secrets.backup-desktop-password.path;
+      };
+      forget = {
+        keep-last = 10;
+        keep-within-daily = "2 weeks";
+        keep-within-weekly = "2 months";
+        keep-monthly = -1;
+      };
+    };
   };
 
   # CUPS
