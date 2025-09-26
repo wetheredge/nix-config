@@ -101,32 +101,36 @@ in {
       };
     };
 
-    environment = {
-      etc."rustic/system.toml".source = toml.generate "system.toml" cfg.finalConfig;
-
-      systemPackages = [
-        (pkgs.writeShellScriptBin "backup" ''
-          set -a # auto export
-          ${lib.optionalString (cfg.envFile != null) "source ${cfg.envFile}"}
-          args=("$@")
-          if [[ "$args" == backup* ]]; then
-            args+=("--tag=manual")
-          fi
-          exec ${cfg.rusticPackage}/bin/rustic -P system "''${args[@]}"
-        '')
-      ];
+    environment.etc = let
+      tagProfile = tag: ''
+        [backup]
+        tags = ["${tag}"]
+      '';
+    in {
+      "rustic/system.toml".source = toml.generate "system.toml" cfg.finalConfig;
+      "rustic/manual.toml".text = tagProfile "manual";
+      "rustic/scheduled.toml".text = tagProfile "scheduled";
     };
+
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "backup" ''
+        set -a # auto export
+        ${lib.optionalString (cfg.envFile != null) "source ${cfg.envFile}"}
+        exec ${cfg.rusticPackage}/bin/rustic -P system -P manual "$@"
+      '')
+    ];
 
     systemd = lib.mkIf (cfg.timerConfig != null) {
       services.backup = {
         description = "Run a system backup";
         after = ["network-online.target"];
         wants = ["network-online.target"];
+        restartIfChanged = false;
 
         serviceConfig =
           {
             Type = "oneshot";
-            ExecStart = "${cfg.rusticPackage}/bin/rustic -P system backup --tag scheduled";
+            ExecStart = "${cfg.rusticPackage}/bin/rustic -P system -P scheduled backup --tag scheduled";
           }
           // lib.optionalAttrs (cfg.envFile != null) {
             EnvironmentFile = cfg.envFile;
