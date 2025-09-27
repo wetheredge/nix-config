@@ -44,7 +44,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets.url = "git+ssh://git@github.com/wetheredge/nix-secrets.git?shallow=1";
+    secrets.url = "git+https://github.com/wetheredge/nix-secrets.git?shallow=1";
   };
 
   outputs = inputs @ {

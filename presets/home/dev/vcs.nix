@@ -27,6 +27,11 @@
       stash.showPatch = true;
       status.showStash = true;
       tag.gpgSign = true;
+
+      url = {
+        # Always use ssh auth for personal GH repos
+        "git@github.com:${vars.devUser}/".insteadOf = "https://github.com/${vars.devUser}/";
+      };
     };
   };
 

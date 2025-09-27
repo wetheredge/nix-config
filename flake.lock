@@ -479,12 +479,12 @@
         "rev": "1f753a15b9f83bee0c876ff24e1f70e04d30cb45",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/wetheredge/nix-secrets.git"
+        "url": "https://github.com/wetheredge/nix-secrets.git"
       },
       "original": {
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/wetheredge/nix-secrets.git"
+        "url": "https://github.com/wetheredge/nix-secrets.git"
       }
     },
     "sqlite-lib-src": {
