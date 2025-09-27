@@ -48,6 +48,7 @@
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     systems,
     ...
@@ -73,6 +74,10 @@
     treefmtEval = eachSystem (pkgs: inputs.treefmt.lib.evalModule pkgs ./treefmt.nix);
   in {
     formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+
+    checks = eachSystem (pkgs: {
+      formatting = treefmtEval.${pkgs.system}.config.build.check self;
+    });
 
     nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
         name = host;
