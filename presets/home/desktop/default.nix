@@ -23,6 +23,10 @@
     wev
     xwayland-satellite
 
+    # Chat
+    signal-desktop
+    dorion
+
     # For rbw
     pinentry-curses
   ];
@@ -59,11 +63,23 @@
         ".config/rbw/config.json"
       ];
     };
-    state.files = [
-      {
-        file = ".local/share/rbw/device_id";
-        mode = "0600";
-      }
-    ];
+    state = {
+      directories = [
+        ".config/Signal"
+        ".config/dorion"
+        ".local/share/dorion"
+      ];
+      files = [
+        {
+          file = ".local/share/rbw/device_id";
+          mode = "0600";
+        }
+      ];
+    };
+    cache = {
+      directories = [
+        ".cache/dorion"
+      ];
+    };
   };
 }
