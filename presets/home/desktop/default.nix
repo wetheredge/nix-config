@@ -21,6 +21,7 @@
     brightnessctl
     swayimg
     wev
+    wl-clipboard-rs
     xwayland-satellite
 
     # Chat
