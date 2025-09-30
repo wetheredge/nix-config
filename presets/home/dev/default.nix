@@ -13,6 +13,13 @@
     marksman
   ];
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  services.podman.enable = true;
+
   preservation.preserveAt.data.directories = [
     "Projects"
   ];
