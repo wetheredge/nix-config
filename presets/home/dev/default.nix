@@ -22,5 +22,6 @@
 
   preservation.preserveAt.data.directories = [
     "Projects"
+    "Work"
   ];
 }
