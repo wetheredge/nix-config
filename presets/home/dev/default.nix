@@ -27,6 +27,9 @@
       "Projects"
       "Work"
     ];
+    state.directories = [
+      ".local/share/direnv/allow"
+    ];
     cache.directories = [
       ".cargo/registry"
       ".rustup/toolchains"
