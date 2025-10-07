@@ -4,6 +4,8 @@
   ];
 
   home.packages = with pkgs; [
+    rustup
+
     hyperfine # benchmarking
     scc # count lines of code
   ];
@@ -20,8 +22,15 @@
 
   services.podman.enable = true;
 
-  preservation.preserveAt.data.directories = [
-    "Projects"
-    "Work"
-  ];
+  preservation.preserveAt = {
+    data.directories = [
+      "Projects"
+      "Work"
+    ];
+    cache.directories = [
+      ".cargo/registry"
+      ".rustup/toolchains"
+      ".rustup/update-hashes"
+    ];
+  };
 }
