@@ -22,6 +22,18 @@
 
   services.podman.enable = true;
 
+  # Git tag signing
+  services.gpg-agent.enable = true;
+  programs.gpg = {
+    enable = true;
+    settings = {
+      pinentry-mode = "loopback";
+      default-new-key-algo = "ed25519/cert";
+      auto-key-retrieve = true;
+      keyserver-options = "honor-keyserver-url";
+    };
+  };
+
   preservation.preserveAt = {
     data.directories = [
       "Projects"
