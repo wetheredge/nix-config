@@ -42,5 +42,8 @@
     state.directories = [
       ".local/share/direnv/allow"
     ];
+    cache.directories = [
+      ".cache/dprint"
+    ];
   };
 }
