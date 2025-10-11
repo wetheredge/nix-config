@@ -12,6 +12,7 @@
   # language servers
   programs.helix.extraPackages = with pkgs; [
     marksman
+    typescript-language-server
   ];
 
   programs.direnv = {
