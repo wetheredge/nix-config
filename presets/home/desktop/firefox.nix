@@ -163,7 +163,12 @@
     };
   };
 
-  preservation.preserveAt.state.directories = [
-    ".mozilla"
-  ];
+  preservation.preserveAt = {
+    state.directories = [
+      ".mozilla"
+    ];
+    cache.directories = [
+      ".cache/mozilla"
+    ];
+  };
 }
