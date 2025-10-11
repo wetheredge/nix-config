@@ -1,11 +1,10 @@
 {pkgs, ...}: {
   imports = [
+    ./rust.nix
     ./vcs.nix
   ];
 
   home.packages = with pkgs; [
-    rustup
-
     hyperfine # benchmarking
     scc # count lines of code
   ];
@@ -41,11 +40,6 @@
     ];
     state.directories = [
       ".local/share/direnv/allow"
-    ];
-    cache.directories = [
-      ".cargo/registry"
-      ".rustup/toolchains"
-      ".rustup/update-hashes"
     ];
   };
 }
