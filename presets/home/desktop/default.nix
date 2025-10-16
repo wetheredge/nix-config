@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./atuin.nix
     ./beancount.nix
     ./eww
     ./firefox.nix

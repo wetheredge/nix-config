@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home.shell.enableShellIntegration = true;
 
   programs.fish = {
@@ -32,4 +37,6 @@
       status.disabled = false;
     };
   };
+
+  preservation.preserveAt.state.files = lib.optional (!config.programs.atuin.enable) ".local/share/fish/fish_history";
 }
