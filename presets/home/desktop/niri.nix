@@ -90,6 +90,8 @@ in {
 
     binds = with config.lib.niri.actions; let
       inherit (config.lib.niri) actions;
+      screenshot = args: {screenshot = [args];};
+      screenshot-window = args: {screenshot-window = [args];};
       # FIXME: <https://redirect.github.com/sodiboo/niri-flake/issues/1018>
       screenshot-screen = args: {screenshot-screen = [args];};
 
