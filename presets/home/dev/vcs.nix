@@ -48,6 +48,7 @@
       };
 
       ui = {
+        default-command = "status";
         diff-editor = ":builtin";
         pager = "less -FRX";
       };
