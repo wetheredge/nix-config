@@ -16,6 +16,7 @@
     };
 
     extraConfig = {
+      commit.verbose = true;
       diff.renames = "copies";
       fetch.pruneTags = true;
       help.autoCorrect = "prompt";
@@ -56,7 +57,23 @@
       # Enable colocated git repos by default
       git.colocate = true;
 
-      templates.git_push_bookmark = ''"${vars.devUser}/push-" ++ change_id.short()'';
+      templates = {
+        git_push_bookmark = ''"${vars.devUser}/push-" ++ change_id.short()'';
+        # Include diff in commit description editor
+        # <https://jj-vcs.github.io/jj/v0.34.0/config/#default-description>
+        draft_commit_description = ''
+          concat(
+            coalesce(description, default_commit_description, "\n"),
+            surround(
+              "\nJJ: Changes to be committed:\n",
+              "",
+              indent("JJ:     ", diff.stat(72)),
+            ),
+            "\nJJ: ignore-rest\n",
+            diff.git(),
+          )
+        '';
+      };
 
       revset-aliases = {
         "ahead()" = "remote_bookmarks()..bookmarks()";
