@@ -3,6 +3,7 @@
     gcc
     rustup
 
+    cargo-expand
     cargo-features-manager
   ];
 
