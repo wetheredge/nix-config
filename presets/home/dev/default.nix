@@ -6,13 +6,15 @@
 
   home.packages = with pkgs; [
     hyperfine # benchmarking
+    lldb # debugger
     scc # count lines of code
   ];
 
   # language servers
   programs.helix.extraPackages = with pkgs; [
-    marksman
+    marksman # markdown
     typescript-language-server
+    zls # zig
   ];
 
   programs.direnv = {
