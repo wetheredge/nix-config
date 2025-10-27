@@ -16,6 +16,7 @@
   };
 
   home.packages = with pkgs; [
+    age # encryption
     choose # better cut
     delta # pretty diffs
     doggo # DNS client
