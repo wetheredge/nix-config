@@ -7,9 +7,7 @@
 
     ./disks.nix
 
-    ./knot.nix
-    ./pds.nix
-    ./server.nix
+    ./services
   ];
 
   preservation.enable = true;
