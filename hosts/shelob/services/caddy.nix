@@ -6,9 +6,9 @@
   services.caddy = {
     enable = true;
     package = pkgs.caddy.withPlugins {
-      hash = "sha256-p9AIi6MSWm0umUB83HPQoU8SyPkX5pMx989zAi8d/74=";
+      hash = "sha256-Z8nPh4OI3/R1nn667ZC5VgE+Q9vDenaQ3QPKxmqPNkc=";
       plugins = [
-        "github.com/caddy-dns/cloudflare@v0.2.1"
+        "github.com/caddy-dns/cloudflare@v0.2.2"
       ];
     };
 
