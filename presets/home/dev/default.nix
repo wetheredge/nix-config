@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ./rust.nix
     ./vcs.nix
   ];
 
@@ -8,6 +7,10 @@
     hyperfine # benchmarking
     lldb # debugger
     scc # count lines of code
+
+    # Rust
+    cargo-expand
+    cargo-features-manager
   ];
 
   # language servers
@@ -46,6 +49,8 @@
     ];
     cache.directories = [
       ".cache/dprint"
+      ".cargo/git"
+      ".cargo/registry"
     ];
   };
 }
