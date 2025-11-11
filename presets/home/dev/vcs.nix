@@ -57,6 +57,10 @@
       # Enable colocated git repos by default
       git.colocate = true;
 
+      # <https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches>
+      aliases.tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+      revset-aliases."closest_bookmark(to)" = "heads(::to & bookmarks())";
+
       templates = {
         git_push_bookmark = ''"${vars.devUser}/push-" ++ change_id.short()'';
         # Include diff in commit description editor
