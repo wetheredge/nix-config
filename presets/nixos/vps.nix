@@ -44,7 +44,7 @@
   services.tailscale = {
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
     useRoutingFeatures = "server";
-    extraUpFlags = [
+    extraSetFlags = [
       "--ssh"
     ];
   };
