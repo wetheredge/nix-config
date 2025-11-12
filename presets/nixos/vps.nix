@@ -38,6 +38,8 @@
     firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
   };
 
+  security.sudo-rs.wheelNeedsPassword = false;
+
   # Ideally, use tailscale ssh. Specific allowlist if required.
   services.openssh = {
     enable = lib.mkDefault false;

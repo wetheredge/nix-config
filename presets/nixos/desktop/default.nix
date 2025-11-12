@@ -59,7 +59,6 @@
   # services.libinput.enable = true;
 
   networking.networkmanager.enable = true;
-  users.users.${vars.user}.extraGroups = ["networkmanager"];
   preservation.preserveAt.state.directories = ["/etc/NetworkManager/system-connections"];
 
   services.tailscale.useRoutingFeatures = "client";
@@ -69,5 +68,10 @@
   programs.appimage = {
     enable = true;
     binfmt = true;
+  };
+
+  users.users.${vars.user} = {
+    inherit (vars) hashedPassword;
+    extraGroups = ["networkmanager"];
   };
 }

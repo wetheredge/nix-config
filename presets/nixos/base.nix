@@ -47,7 +47,6 @@ in {
   users = {
     mutableUsers = false;
     users.${vars.user} = {
-      inherit (vars) hashedPassword;
       isNormalUser = true;
       extraGroups = ["wheel"];
       openssh.authorizedKeys.keys = [
