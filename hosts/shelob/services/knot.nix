@@ -19,6 +19,12 @@ in {
     gitUser = "git";
   };
 
+  services.openssh = {
+    enable = true;
+    ports = [2222];
+    settings.AllowUsers = [cfg.gitUser];
+  };
+
   services.caddy.virtualHosts = {
     "${cfg.server.hostname}".extraConfig = "reverse_proxy http://${toString cfg.server.listenAddr}";
   };

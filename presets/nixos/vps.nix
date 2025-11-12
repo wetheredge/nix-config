@@ -38,8 +38,16 @@
     firewall.trustedInterfaces = [config.services.tailscale.interfaceName];
   };
 
-  # Use tailscale ssh instead
-  services.openssh.openFirewall = false;
+  # Ideally, use tailscale ssh. Specific allowlist if required.
+  services.openssh = {
+    enable = lib.mkDefault false;
+    openFirewall = false;
+    settings = {
+      AllowUsers = [];
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
 
   services.tailscale = {
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
