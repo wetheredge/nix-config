@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.services.tangled-knot;
+  cfg = config.services.tangled.knot;
 in {
-  services.tangled-knot = rec {
+  services.tangled.knot = rec {
     enable = true;
     server = {
       hostname = "knot.wetheredge.com";
@@ -32,7 +32,7 @@ in {
   preservation.preserveAt.data.users.${cfg.gitUser} = let
     toRelative = lib.removePrefix config.users.users.${cfg.gitUser}.home;
   in {
-    directories = [(toRelative config.services.tangled-knot.repo.scanPath)];
-    files = [(toRelative config.services.tangled-knot.server.dbPath)];
+    directories = [(toRelative cfg.repo.scanPath)];
+    files = [(toRelative cfg.server.dbPath)];
   };
 }
