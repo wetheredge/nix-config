@@ -55,6 +55,10 @@ in {
     };
   };
 
+  age.identityPaths = let
+    prefix = lib.optionalString config.preservation.enable config.preservation.preserveAt.state.persistentStoragePath;
+  in [(prefix + sshHostKey)];
+
   services.openssh = {
     enable = true;
     settings = {
@@ -73,10 +77,12 @@ in {
     }
   ];
 
-  age.identityPaths = let
-    prefix = lib.optionalString config.preservation.enable config.preservation.preserveAt.state.persistentStoragePath;
-  in [(prefix + sshHostKey)];
-
   services.tailscale.enable = true;
   preservation.preserveAt.state.directories = ["/var/lib/tailscale"];
+
+  programs.mosh = {
+    enable = true;
+    # Only over tailnet
+    openFirewall = false;
+  };
 }
