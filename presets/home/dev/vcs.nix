@@ -57,9 +57,24 @@
       # Enable colocated git repos by default
       git.colocate = true;
 
-      # <https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches>
-      aliases.tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
-      revset-aliases."closest_bookmark(to)" = "heads(::to & bookmarks())";
+      aliases = let
+        execBashScript = script: ["util" "exec" "--" "bash" "-c" script ""];
+      in {
+        bump = execBashScript ''
+          set -eo pipefail
+          if [[ -n "$1" ]]; then
+            jj bookmark move "$1" -t "$1+"
+          else
+            jj bookmark move -f "closest_bookmark(@)" -t "closest_bookmark(@)+"
+          fi
+        '';
+        # <https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches>
+        tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+      };
+
+      revset-aliases = {
+        "closest_bookmark(to)" = "heads(::to & bookmarks())";
+      };
 
       templates = {
         git_push_bookmark = ''"${vars.devUser}/push-" ++ change_id.short()'';
