@@ -99,6 +99,7 @@
 
             ./modules/nixos
 
+            ./overlays/lix.nix
             ./overlays/locales
             {
               nixpkgs.overlays = [
