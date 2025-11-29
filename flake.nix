@@ -100,7 +100,12 @@
             ./modules/nixos
 
             ./overlays/locales
-            {nixpkgs.overlays = [inputs.niri.overlays.niri];}
+            {
+              nixpkgs.overlays = [
+                inputs.niri.overlays.niri
+                (_: _: {unstable = import inputs.nixpkgs-unstable {inherit system;};})
+              ];
+            }
 
             ./presets/nixos/base.nix
             ./hosts/${host}

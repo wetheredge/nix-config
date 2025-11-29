@@ -1,6 +1,6 @@
 {
   vars,
-  pkgs-unstable,
+  pkgs,
   ...
 }: {
   programs.git = {
@@ -42,7 +42,7 @@
 
   programs.jujutsu = {
     enable = true;
-    package = pkgs-unstable.jujutsu;
+    package = pkgs.unstable.jujutsu;
     settings = {
       user = {
         inherit (vars) name email;
