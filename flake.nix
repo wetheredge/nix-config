@@ -32,7 +32,11 @@
 
     preservation.url = "github:nix-community/preservation";
 
-    niri.url = "github:sodiboo/niri-flake";
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     tangled = {
       url = "git+https://tangled.org/tangled.org/core";
