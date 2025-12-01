@@ -25,6 +25,7 @@ in {
     initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
   };
+  system.tools.nixos-generate-config.enable = false; # Perl
 
   console.earlySetup = true;
 
