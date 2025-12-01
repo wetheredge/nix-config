@@ -5,17 +5,19 @@
 }: {
   programs.git = {
     enable = true;
-    userName = vars.name;
-    userEmail = vars.email;
 
     # Also used by jujutsu
     ignores = ["*~"];
 
-    aliases = {
-      tree = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
-    };
+    settings = {
+      user = {
+        inherit (vars) name email;
+      };
 
-    extraConfig = {
+      aliases = {
+        tree = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+      };
+
       commit.verbose = true;
       diff.renames = "copies";
       fetch.pruneTags = true;

@@ -37,11 +37,16 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
-    compression = true;
-    matchBlocks."knot.wetheredge.com" = {
-      hostname = "shelob";
-      port = 2222;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+        compression = true;
+      };
+      "knot.wetheredge.com" = {
+        hostname = "shelob";
+        port = 2222;
+      };
     };
   };
   services.ssh-agent.enable = true;

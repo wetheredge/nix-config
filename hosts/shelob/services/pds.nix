@@ -6,8 +6,10 @@
   hostname = "pds.wetheredge.com";
   user = "pds";
   group = "pds";
+
+  cfg = config.services.bluesky-pds;
 in {
-  services.pds = {
+  services.bluesky-pds = {
     enable = true;
     package = pkgs.unstable.bluesky-pds;
     pdsadmin.enable = true;
@@ -22,7 +24,7 @@ in {
 
   services.caddy.virtualHosts = {
     "${hostname}" = {
-      extraConfig = "reverse_proxy http://127.0.0.1:${toString config.services.pds.settings.PDS_PORT}";
+      extraConfig = "reverse_proxy http://127.0.0.1:${toString cfg.settings.PDS_PORT}";
     };
   };
 

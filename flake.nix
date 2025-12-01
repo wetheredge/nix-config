@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -74,13 +74,13 @@
       shelob = "x86_64-linux";
     };
 
-    eachSystem = f: lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-    treefmtEval = eachSystem (pkgs: inputs.treefmt.lib.evalModule pkgs ./treefmt.nix);
+    eachSystem = f: lib.genAttrs (import systems) f;
+    treefmtEval = eachSystem (system: inputs.treefmt.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix);
   in {
-    formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+    formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
-    checks = eachSystem (pkgs: {
-      formatting = treefmtEval.${pkgs.system}.config.build.check self;
+    checks = eachSystem (system: {
+      formatting = treefmtEval.${system}.config.build.check self;
     });
 
     nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
