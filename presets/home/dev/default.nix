@@ -43,6 +43,10 @@
     data.directories = [
       "Projects"
       "Work"
+      {
+        directory = ".gnupg";
+        mode = "0700";
+      }
     ];
     state.directories = [
       ".local/share/direnv/allow"
