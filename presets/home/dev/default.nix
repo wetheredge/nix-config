@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./vcs.nix
   ];
@@ -13,12 +17,32 @@
     cargo-features-manager
   ];
 
-  # language servers
-  programs.helix.extraPackages = with pkgs; [
-    marksman # markdown
-    typescript-language-server
-    zls # zig
-  ];
+  programs.helix = {
+    # language servers
+    extraPackages = with pkgs; [
+      marksman # markdown
+    ];
+
+    languages = {
+      language-server = {
+        deno-lsp = {
+          command = "deno";
+          args = ["lsp"];
+          config.deno.enable = true;
+        };
+      };
+
+      language = let
+        tsLike = {
+          roots = ["deno.json" "deno.jsonc" "package.json"];
+          language-servers = ["deno-lsp" "typescript-language-server"];
+        };
+      in lib.mapAttrsToList (name: attrs: {inherit name;} // attrs) {
+        javascript = tsLike;
+        typescript = tsLike;
+      };
+    };
+  };
 
   programs.direnv = {
     enable = true;
