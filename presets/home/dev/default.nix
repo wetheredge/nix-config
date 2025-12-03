@@ -63,6 +63,8 @@
     };
   };
 
+  xdg.configFile."pnpm/rc".text = "update-notifier=false";
+
   preservation.preserveAt = {
     data.directories = [
       "Projects"
@@ -77,6 +79,7 @@
     ];
     cache.directories = [
       ".cache/dprint"
+      ".cache/pnpm"
       ".cargo/git"
       ".cargo/registry"
     ];
