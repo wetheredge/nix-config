@@ -5,13 +5,13 @@ switch:
     nixos-rebuild switch --flake .
 
 switch-for host:
-    nixos-rebuild switch --flake .#{{ host }} --target-host {{ host }} --use-remote-sudo
+    nixos-rebuild switch --flake .#{{ host }} --target-host {{ host }} --sudo
 
 boot:
     nixos-rebuild boot --flake .
 
 boot-for host:
-    nixos-rebuild boot --flake .#{{ host }} --target-host {{ host }} --use-remote-sudo
+    nixos-rebuild boot --flake .#{{ host }} --target-host {{ host }} --sudo
 
 dry-build host=`hostname`:
     nixos-rebuild dry-build --flake .#{{ host }}
