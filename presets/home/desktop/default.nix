@@ -10,6 +10,7 @@
     ./eww
     ./firefox.nix
     ./kickoff
+    ./media.nix
     ./niri.nix
   ];
 
