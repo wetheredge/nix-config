@@ -41,10 +41,11 @@
           roots = ["deno.json" "deno.jsonc" "package.json"];
           language-servers = ["deno-lsp" "typescript-language-server"];
         };
-      in lib.mapAttrsToList (name: attrs: {inherit name;} // attrs) {
-        javascript = tsLike;
-        typescript = tsLike;
-      };
+      in
+        lib.mapAttrsToList (name: attrs: {inherit name;} // attrs) {
+          javascript = tsLike;
+          typescript = tsLike;
+        };
     };
   };
 
