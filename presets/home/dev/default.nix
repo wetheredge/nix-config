@@ -7,6 +7,10 @@
     ./vcs.nix
   ];
 
+  home.sessionVariables = {
+    ASTRO_TELEMETRY_DISABLED = 1;
+  };
+
   home.packages = with pkgs; [
     hyperfine # benchmarking
     lldb # debugger
