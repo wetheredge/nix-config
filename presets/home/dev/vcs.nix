@@ -1,6 +1,8 @@
 {
-  vars,
+  osConfig,
+  config,
   pkgs,
+  vars,
   ...
 }: {
   programs.git = {
@@ -18,6 +20,7 @@
         tree = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
       };
 
+      credential.helper = "store";
       commit.verbose = true;
       diff.renames = "copies";
       fetch.pruneTags = true;
@@ -37,6 +40,8 @@
       };
     };
   };
+
+  home.file.".config/git/credentials".source = config.lib.file.mkOutOfStoreSymlink osConfig.age.secrets.git-credentials.path;
 
   # programs.git.delta = {
   #   enable = true;
