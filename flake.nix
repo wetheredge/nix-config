@@ -31,6 +31,10 @@
     };
 
     preservation.url = "github:nix-community/preservation";
+    demolition = {
+      url = "github:wetheredge/demolition";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -64,6 +68,7 @@
       base = {
         inherit vars;
         pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+        inherit (inputs) demolition;
       };
       nixos = base // {inherit (inputs) nixos-hardware;};
       home = base;

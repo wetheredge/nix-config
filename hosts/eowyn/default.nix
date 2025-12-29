@@ -27,7 +27,7 @@
   };
 
   preservation.enable = true;
-  settings.rollback = {
+  settings.demolition = {
     enable = true;
     device = "/dev/mapper/crypted";
   };

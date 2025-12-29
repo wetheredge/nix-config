@@ -11,7 +11,7 @@
   ];
 
   preservation.enable = true;
-  settings.rollback = {
+  settings.demolition = {
     enable = true;
     device = "/dev/disk/by-partlabel/disk-main-root";
   };
