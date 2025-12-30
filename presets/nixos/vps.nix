@@ -59,6 +59,8 @@
     ];
   };
 
+  settings.demolition.keep.count = lib.mkDefault "3";
+
   services.wren.backup = let
     backupSecret = suffix: config.age.secrets."backup-${config.networking.hostName}-${suffix}".path;
   in {
