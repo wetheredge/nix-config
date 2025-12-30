@@ -21,6 +21,8 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.agenix.follows = "agenix";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
     };
     # Pull in latest changes to agenix module used by ragenix
     agenix = {
@@ -34,6 +36,8 @@
     demolition = {
       url = "github:wetheredge/demolition";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "crane";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     niri = {
@@ -45,6 +49,7 @@
     tangled = {
       url = "git+https://tangled.org/tangled.org/core";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.gomod2nix.follows = "gomod2nix";
     };
 
     treefmt = {
@@ -53,6 +58,17 @@
     };
 
     secrets.url = "git+https://github.com/wetheredge/nix-secrets.git?shallow=1";
+
+    # not used directly; just to reduce the number of inputs
+    crane.url = "github:ipetkov/crane";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    gomod2nix = {
+      url = "github:nix-community/gomod2nix";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = inputs @ {
