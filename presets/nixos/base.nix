@@ -59,9 +59,6 @@ in {
   age.identityPaths = let
     prefix = lib.optionalString config.preservation.enable config.preservation.preserveAt.state.persistentStoragePath;
   in [(prefix + sshHostKey)];
-  age.secrets.git-credentials = {
-    owner = vars.user;
-  };
 
   services.openssh = {
     enable = true;

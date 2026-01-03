@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
 
     ../../presets/nixos/desktop
+    ../../presets/nixos/dev.nix
     ../../presets/nixos/gaming.nix
   ];
 

@@ -41,7 +41,7 @@
     };
   };
 
-  home.file.".config/git/credentials".source = config.lib.file.mkOutOfStoreSymlink osConfig.age.secrets.git-credentials.path;
+  xdg.configFile."git/credentials".source = config.lib.file.mkOutOfStoreSymlink osConfig.age.secrets.git-credentials.path;
 
   # programs.git.delta = {
   #   enable = true;
