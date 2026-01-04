@@ -13,7 +13,10 @@ in {
     enable = true;
     package = pkgs.unstable.bluesky-pds;
     pdsadmin.enable = true;
-    settings.PDS_HOSTNAME = hostname;
+    settings = {
+      PDS_HOSTNAME = hostname;
+      PDS_PORT = 3000;
+    };
     environmentFiles = [config.age.secrets.pds-env.path];
   };
 

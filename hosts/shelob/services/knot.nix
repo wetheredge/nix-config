@@ -10,7 +10,7 @@ in {
     server = {
       hostname = "knot.wetheredge.com";
       owner = "did:plc:kbeqwhgvoa63f3mmbldlawqq";
-      listenAddr = "127.0.0.1:5555";
+      listenAddr = "127.0.0.1:3001";
     };
     # Push over tailscale only
     openFirewall = false;
