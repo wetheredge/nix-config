@@ -28,8 +28,11 @@ in {
     environmentFile = config.age.secrets.ntfy-env.path;
   };
 
-  # Ensure /run/ntfy-sh exists before the service starts
-  systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = "ntfy-sh";
+  systemd.services.ntfy-sh = {
+    before = ["ntfy-boot.service"];
+    # Ensure /run/ntfy-sh exists before the service starts
+    serviceConfig.RuntimeDirectory = "ntfy-sh";
+  };
 
   age.secrets.ntfy-env = {
     owner = cfg.user;

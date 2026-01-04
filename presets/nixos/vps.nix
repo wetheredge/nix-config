@@ -1,8 +1,11 @@
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
+}: let
+  inherit (config.networking) hostName;
+in {
   boot = {
     loader.efi.canTouchEfiVariables = true;
     kernelParams = [
@@ -59,10 +62,31 @@
     ];
   };
 
+  # Based on <https://github.com/stendler/systemd-ntfy-poweronoff/blob/f1038b7d3277824e4717a71fd081f6dfdd2627f7/ntfy-startup%40.service>
+  systemd.services.ntfy-boot = let
+    mkNtfy = tag: msg: "${pkgs.curl}/bin/curl --no-progress-meter --fail-with-body -H Authorization:\${NTFY_AUTH} -H Tags:${tag} -d '${msg}' https://ntfy.wetheredge.com/boot";
+  in {
+    description = "Send a notification on system start up/shut down";
+    wantedBy = ["default.target"];
+    bindsTo = ["network-online.target"];
+    after = ["network-online.target" "multi-user.target"];
+    startLimitIntervalSec = 100;
+    startLimitBurst = 6;
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = 10;
+      ExecStart = mkNtfy "green_circle" "%H is online";
+      RemainAfterExit = true;
+      ExecStop = mkNtfy "red_circle" "%H is shutting down";
+      EnvironmentFile = config.age.secrets."ntfy-boot-${hostName}".path;
+    };
+  };
+
   settings.demolition.keep.count = lib.mkDefault "3";
 
   services.wren.backup = let
-    backupSecret = suffix: config.age.secrets."backup-${config.networking.hostName}-${suffix}".path;
+    backupSecret = suffix: config.age.secrets."backup-${hostName}-${suffix}".path;
   in {
     enable = lib.mkDefault true;
     envFile = lib.mkDefault (backupSecret "env");
