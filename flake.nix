@@ -112,7 +112,7 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.ragenix.nixosModules.default
-            inputs.secrets.nixosModules.secrets
+            inputs.secrets.nixosModules.default
             inputs.preservation.nixosModules.preservation
             inputs.niri.nixosModules.niri
             inputs.tangled.nixosModules.knot

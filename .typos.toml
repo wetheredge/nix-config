@@ -1,8 +1,9 @@
 [default]
 locale = "en-us"
 
-[default.extend-identifiers]
+[default.extend-words]
 crypted = "crypted"
+vertx = "vertx"
 
 [files]
 extend-exclude = ["overlays/locales/*", "!overlays/locales/*.nix"]
