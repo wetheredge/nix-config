@@ -2,7 +2,9 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  cfg = config.services.caddy;
+in {
   services.caddy = {
     enable = true;
     package = pkgs.caddy.withPlugins {
@@ -35,4 +37,8 @@
     allowedTCPPorts = [80 443];
     allowedUDPPorts = [443];
   };
+
+  preservation.preserveAt.state.users.${cfg.user}.directories = [
+    ".local/share/caddy"
+  ];
 }
