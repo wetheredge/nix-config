@@ -41,7 +41,12 @@ in {
 
   services.caddy.virtualHosts = {
     ${host}.extraConfig = ''
-      redir / https://ntfy.sh
+      @getroot {
+        method GET
+        path /
+      }
+      redir @getroot https://ntfy.sh
+
       reverse_proxy unix/${cfg.settings.listen-unix}
     '';
   };
