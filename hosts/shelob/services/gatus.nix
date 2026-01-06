@@ -8,6 +8,8 @@
 
   user = "gatus";
   group = "gatus";
+
+  stateDir = "/var/lib/private/gatus";
 in {
   services.gatus = {
     enable = true;
@@ -20,7 +22,7 @@ in {
 
       storage = {
         type = "sqlite";
-        path = "/var/lib/gatus/data.db";
+        path = "${stateDir}/data.db";
       };
 
       ui = {
@@ -121,9 +123,9 @@ in {
     };
   };
 
-  preservation.preserveAt.state.files = [
+  preservation.preserveAt.state.directories = [
     {
-      file = cfg.settings.storage.path;
+      directory = stateDir;
       inherit user group;
     }
   ];
