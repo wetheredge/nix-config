@@ -89,6 +89,10 @@ in {
               "https://knot.wetheredge.com/xrpc/sh.tangled.knot.version"
               "has([BODY].version) == true")
             (mkService
+              "linkding"
+              "https://links.wetheredge.com/health"
+              "[BODY].status == healthy")
+            (mkService
               "ntfy"
               "https://ntfy.wetheredge.com/v1/health"
               "[BODY].healthy == true")

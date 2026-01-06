@@ -158,6 +158,11 @@
             icon = "https://www.wikipedia.org/static/favicon/wikipedia.ico";
             urls = [(mkUrl "https://www.wikipedia.org/search-redirect.php" "search" {})];
           };
+          "Linkding" = {
+            definedAliases = ["@link"];
+            icon = "https://links.wetheredge.com/static/favicon.ico";
+            urls = [(mkUrl "https://links.wetheredge.com/bookmarks" "q" {client = "opensearch";})];
+          };
         };
       };
     };

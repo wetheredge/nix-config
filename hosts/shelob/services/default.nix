@@ -5,6 +5,7 @@
     ./freshrss.nix
     ./gatus.nix
     ./knot.nix
+    ./linkding.nix
     ./ntfy.nix
     ./pds.nix
   ];
