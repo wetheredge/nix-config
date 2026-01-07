@@ -16,7 +16,17 @@ in {
         DEFAULT_PRIVATE = "private";
       };
 
-      service.DISABLE_REGISTRATION = true;
+      openid = {
+        ENABLE_OPENID_SIGNIN = false;
+        ENABLE_OPENID_SIGNUP = true;
+        WHITELISTED_URIS = "auth.wetheredge.com";
+      };
+
+      service = {
+        DISABLE_REGISTRATION = false;
+        ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+        SHOW_REGISTRATION_BUTTON = false;
+      };
     };
   };
 

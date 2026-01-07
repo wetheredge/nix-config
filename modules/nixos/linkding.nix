@@ -36,6 +36,12 @@ in {
       default = null;
       example = "/run/secrets/linkding";
     };
+
+    environment = mkOption {
+      description = "Extra environment variables";
+      type = types.attrsOf types.str;
+      default = {};
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -45,9 +51,7 @@ in {
       volumes = ["${cfg.stateDirectory}:/etc/linkding/data"];
       ports = ["${toString cfg.port}:9090"];
       environmentFiles = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-      environment = {
-        LD_FAVICON_PROVIDER = "https://icons.duckduckgo.com/ip3/{domain}.ico";
-      };
+      inherit (cfg) environment;
     };
 
     systemd.tmpfiles.settings."10-linkding" = {
