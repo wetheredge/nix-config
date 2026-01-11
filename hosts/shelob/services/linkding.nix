@@ -21,11 +21,7 @@ in {
   };
 
   services.caddy.virtualHosts = {
-    "links.wetheredge.com" = {
-      extraConfig = "reverse_proxy http://localhost:${toString cfg.port}";
-      # Bind locally + tailscale
-      listenAddresses = ["127.0.0.1" "::1" "100.104.193.124"];
-    };
+    "links.wetheredge.com".extraConfig = "reverse_proxy http://localhost:${toString cfg.port}";
   };
 
   preservation.preserveAt.data.directories = [
