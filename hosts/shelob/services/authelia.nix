@@ -85,6 +85,16 @@
               - profile
             pre_configured_consent_duration: '6 months'
             token_endpoint_auth_method: client_secret_post
+          - client_name: Miniflux
+            client_id: '${getSecret "oidc.client.miniflux.id"}'
+            client_secret: '${getSecret "oidc.client.miniflux.secret"}'
+            redirect_uris:
+              - 'https://miniflux.wetheredge.com/oauth2/oidc/callback'
+            scopes:
+              - openid
+              - email
+              - profile
+            pre_configured_consent_duration: '6 months'
   '';
 in {
   services.authelia.instances.main = {

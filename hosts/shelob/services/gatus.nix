@@ -97,6 +97,10 @@ in {
               "https://ntfy.wetheredge.com/v1/health"
               "[BODY].healthy == true")
             (mkService
+              "Miniflux"
+              "https://miniflux.wetheredge.com/healthcheck"
+              "[BODY] == OK")
+            (mkService
               "pds"
               "https://pds.wetheredge.com/xrpc/_health"
               "has([BODY].version) == true")

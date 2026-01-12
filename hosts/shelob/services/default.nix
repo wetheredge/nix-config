@@ -7,6 +7,7 @@
     ./gatus.nix
     ./knot.nix
     ./linkding.nix
+    ./miniflux.nix
     ./ntfy.nix
     ./pds.nix
   ];
