@@ -70,6 +70,10 @@ in {
       in
         lib.map (a: defaults // a) [
           (mkService
+            "Authelia"
+            "https://auth.wetheredge.com/api/health"
+            "[BODY].status == OK")
+          (mkService
             "Forgejo"
             "https://git.wetheredge.com/api/v1/version"
             "has([BODY].version) == true")
