@@ -9,7 +9,7 @@
   user = "gatus";
   group = "gatus";
 
-  stateDir = "/var/lib/private/gatus";
+  stateDir = "/var/lib/gatus";
 in {
   services.gatus = {
     enable = true;
@@ -118,17 +118,25 @@ in {
     };
   };
 
-  age.secrets.gatus-env = {
-    owner = user;
-    inherit group;
-  };
-
   services.caddy.virtualHosts = {
     ${host} = {
       extraConfig = "reverse_proxy http://${cfg.settings.web.address}:${toString cfg.settings.web.port}";
       # Bind locally + tailscale
       listenAddresses = ["127.0.0.1" "::1" "100.104.193.124"];
     };
+  };
+
+  systemd.services.gatus.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "gatus";
+    Group = "gatus";
+  };
+  users = {
+    users.gatus = {
+      group = "gatus";
+      isSystemUser = true;
+    };
+    groups.gatus = {};
   };
 
   preservation.preserveAt.state.directories = [
