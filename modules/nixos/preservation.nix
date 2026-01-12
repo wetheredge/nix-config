@@ -59,6 +59,8 @@ in {
   config = {
     # TODO: assert users.mutableUsers?
 
+    services.userborn.passwordFilesLocation = "${config.preservation.preserveAt.state.persistentStoragePath}/etc";
+
     boot.initrd.systemd.initrdBin = [
       demolitionCfg.package
     ];
