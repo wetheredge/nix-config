@@ -2,6 +2,7 @@
   programs.atuin = {
     enable = true;
     settings = {
+      filter_mode = "workspace";
       workspaces = true;
     };
   };
