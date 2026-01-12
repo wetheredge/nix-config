@@ -9,6 +9,8 @@
   database = "${stateDir}/db.sqlite3";
   socket = "/var/run/${service}/authelia.sock";
 
+  redisCfg = config.services.redis.servers.authelia;
+
   rootDomain = "wetheredge.com";
   domain = "auth.${rootDomain}";
 
@@ -40,9 +42,13 @@
       default_policy: two_factor
 
     session:
+      secret: '${getSecret "session_secret"}'
       cookies:
         - domain: '${rootDomain}'
           authelia_url: 'https://${domain}'
+      redis:
+        host: '${redisCfg.unixSocket}'
+        password: '${getSecret "redis_password"}'
 
     storage:
       encryption_key: '${getSecret "storage_key"}'
@@ -95,10 +101,24 @@ in {
     RuntimeDirectory = service;
   };
 
-  age.secrets = lib.genAttrs ["authelia" "authelia-users"] (_: {
-    owner = cfg.user;
-    inherit (cfg) group;
-  });
+  services.redis.servers.authelia = {
+    enable = true;
+    requirePassFile = config.age.secrets.redis-authelia-password.path;
+    unixSocketPerm = 666;
+  };
+  systemd.services.redis-authelia.serviceConfig = {
+    RuntimeDirectoryMode = lib.mkForce 777;
+  };
+
+  age.secrets =
+    lib.mapAttrs (_: cfg: {
+      owner = cfg.user;
+      inherit (cfg) group;
+    }) {
+      authelia = cfg;
+      authelia-users = cfg;
+      redis-authelia-password = redisCfg;
+    };
 
   services.caddy.virtualHosts = {
     ${domain}.extraConfig = "reverse_proxy unix/${socket}";
