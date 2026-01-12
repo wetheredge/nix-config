@@ -62,59 +62,51 @@ in {
           interval = "15m";
           conditions = ["[STATUS] == 302"];
         };
-        mkDomain = domain: {
-          name = domain;
-          group = "domains";
-          url = "https://${domain}";
-          interval = "6h";
-          conditions = ["[DOMAIN_EXPIRATION] > 720h"];
-        };
 
         defaults = {
           alerts = [{type = "ntfy";}];
           client.ignore-redirect = true;
         };
       in
-        lib.map (a: defaults // a) ([
-            (mkService
-              "Forgejo"
-              "https://git.wetheredge.com/api/v1/version"
-              "has([BODY].version) == true")
-            (mkService
-              "FreshRSS"
-              "https://feeds.wetheredge.com/api/greader.php"
-              "[BODY] == OK")
-            (mkService
-              "knot"
-              "https://knot.wetheredge.com/xrpc/sh.tangled.knot.version"
-              "has([BODY].version) == true")
-            (mkService
-              "linkding"
-              "https://links.wetheredge.com/health"
-              "[BODY].status == healthy")
-            (mkService
-              "ntfy"
-              "https://ntfy.wetheredge.com/v1/health"
-              "[BODY].healthy == true")
-            (mkService
-              "Miniflux"
-              "https://miniflux.wetheredge.com/healthcheck"
-              "[BODY] == OK")
-            (mkService
-              "pds"
-              "https://pds.wetheredge.com/xrpc/_health"
-              "has([BODY].version) == true")
-            (mkRedir "site" "services" "https://wetheredge.com")
-            (mkRedir "homepage" "VerTX" "https://vertx.cc")
-            {
-              name = "simulator";
-              group = "VerTX";
-              url = "https://simulator.vertx.cc";
-              interval = "15m";
-              conditions = ["[STATUS] == 200"];
-            }
-          ]
-          ++ lib.map mkDomain config.wren.private.domains);
+        lib.map (a: defaults // a) [
+          (mkService
+            "Forgejo"
+            "https://git.wetheredge.com/api/v1/version"
+            "has([BODY].version) == true")
+          (mkService
+            "FreshRSS"
+            "https://feeds.wetheredge.com/api/greader.php"
+            "[BODY] == OK")
+          (mkService
+            "knot"
+            "https://knot.wetheredge.com/xrpc/sh.tangled.knot.version"
+            "has([BODY].version) == true")
+          (mkService
+            "linkding"
+            "https://links.wetheredge.com/health"
+            "[BODY].status == healthy")
+          (mkService
+            "ntfy"
+            "https://ntfy.wetheredge.com/v1/health"
+            "[BODY].healthy == true")
+          (mkService
+            "Miniflux"
+            "https://miniflux.wetheredge.com/healthcheck"
+            "[BODY] == OK")
+          (mkService
+            "pds"
+            "https://pds.wetheredge.com/xrpc/_health"
+            "has([BODY].version) == true")
+          (mkRedir "site" "services" "https://wetheredge.com")
+          (mkRedir "homepage" "VerTX" "https://vertx.cc")
+          {
+            name = "simulator";
+            group = "VerTX";
+            url = "https://simulator.vertx.cc";
+            interval = "15m";
+            conditions = ["[STATUS] == 200"];
+          }
+        ];
     };
   };
 
