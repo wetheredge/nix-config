@@ -9,6 +9,7 @@ in {
         DOMAIN = "git.wetheredge.com";
         ROOT_URL = "https://${DOMAIN}";
         PROTOCOL = "http+unix";
+        LANDING_PAGE = "explore/repos";
       };
 
       repository = {
