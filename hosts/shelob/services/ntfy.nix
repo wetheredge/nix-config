@@ -1,13 +1,17 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.services.ntfy-sh;
   host = "ntfy.wetheredge.com";
-  stateDir = "/var/lib/private/ntfy-sh";
+  stateDir = "/var/lib/ntfy-sh";
 in {
   services.ntfy-sh = {
     enable = true;
     settings = {
       base-url = "https://${host}";
-      listen-unix = "/run/ntfy-sh/ntfy.sock";
+      listen-unix = config.sockets.sockets.ntfy-sh.socket;
       listen-unix-mode = 666;
       behind-proxy = true;
 
@@ -28,11 +32,9 @@ in {
     environmentFile = config.age.secrets.ntfy-env.path;
   };
 
-  systemd.services.ntfy-sh = {
-    before = ["ntfy-boot.service"];
-    # Ensure /run/ntfy-sh exists before the service starts
-    serviceConfig.RuntimeDirectory = "ntfy-sh";
-  };
+  sockets.sockets.ntfy-sh = {};
+
+  systemd.services.ntfy-sh.before = ["ntfy-boot.service"];
 
   age.secrets.ntfy-env = {
     owner = cfg.user;
@@ -49,6 +51,19 @@ in {
 
       reverse_proxy unix/${cfg.settings.listen-unix}
     '';
+  };
+
+  systemd.services.ntfy-sh.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "ntfy-sh";
+    Group = "ntfy-sh";
+  };
+  users = {
+    users.ntfy-sh = {
+      group = "ntfy-sh";
+      isSystemUser = true;
+    };
+    groups.ntfy-sh = {};
   };
 
   preservation.preserveAt.state.directories = [

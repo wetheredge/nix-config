@@ -9,6 +9,7 @@ in {
         DOMAIN = "git.wetheredge.com";
         ROOT_URL = "https://${DOMAIN}";
         PROTOCOL = "http+unix";
+        HTTP_ADDR = config.sockets.sockets.forgejo.socket;
         LANDING_PAGE = "explore/repos";
       };
 
@@ -30,6 +31,8 @@ in {
       };
     };
   };
+
+  sockets.sockets.forgejo = {};
 
   services.caddy.virtualHosts = {
     "${cfg.settings.server.DOMAIN}" = {

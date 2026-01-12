@@ -7,7 +7,7 @@
   service = "authelia-${cfg.name}";
   stateDir = "/var/lib/${service}";
   database = "${stateDir}/db.sqlite3";
-  socket = "/var/run/${service}/authelia.sock";
+  inherit (config.sockets.sockets.authelia-main) socket;
 
   redisCfg = config.services.redis.servers.authelia;
 
@@ -107,17 +107,17 @@ in {
     };
   };
 
-  systemd.services.${service}.serviceConfig = {
-    RuntimeDirectory = service;
-  };
-
   services.redis.servers.authelia = {
     enable = true;
     requirePassFile = config.age.secrets.redis-authelia-password.path;
+    unixSocket = config.sockets.sockets.redis-authelia.socket;
     unixSocketPerm = 666;
   };
-  systemd.services.redis-authelia.serviceConfig = {
-    RuntimeDirectoryMode = lib.mkForce 777;
+
+  sockets.sockets = {
+    authelia-main.name = "authelia.sock";
+    redis-authelia.name = "redis.sock";
+    redis-authelia.group = config.users.users.${cfg.user}.group;
   };
 
   age.secrets =

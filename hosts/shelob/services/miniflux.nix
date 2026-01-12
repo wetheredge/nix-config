@@ -10,7 +10,7 @@ in {
     enable = true;
     adminCredentialsFile = config.age.secrets.miniflux-env.path;
     config = {
-      LISTEN_ADDR = "/run/miniflux/miniflux.sock";
+      LISTEN_ADDR = config.sockets.sockets.miniflux.socket;
       BASE_URL = "https://${domain}";
 
       POLLING_LIMIT_PER_HOST = 2;
@@ -25,16 +25,22 @@ in {
     };
   };
 
-  systemd.services.miniflux.serviceConfig = {
-    RuntimeDirectoryMode = lib.mkForce 777;
-  };
+  sockets.sockets.miniflux = {};
 
   services.caddy.virtualHosts = {
     ${domain}.extraConfig = "reverse_proxy unix/${cfg.config.LISTEN_ADDR}";
   };
 
-  # age.secrets.miniflux-env = {
-  #   owner = cfg.user;
-  #   inherit (cfg) group;
-  # };
+  systemd.services.miniflux.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "miniflux";
+    Group = "miniflux";
+  };
+  users = {
+    users.miniflux = {
+      group = "miniflux";
+      isSystemUser = true;
+    };
+    groups.miniflux = {};
+  };
 }
