@@ -70,6 +70,36 @@
 
   xdg.configFile."pnpm/rc".text = "update-notifier=false";
 
+  programs.bat.syntaxes = {
+    Gleam = {
+      src = pkgs.fetchFromGitHub {
+        owner = "digitalcora";
+        repo = "sublime-text-gleam";
+        rev = "e3ad6724cb26b7c39622636173833d1ebd83b156";
+        hash = "sha256-fzTwVG0lxSBh7F3A7nHET9Makh+UrIaIXjF/sc9Z5A0=";
+      };
+      file = "package/Gleam.sublime-syntax";
+    };
+    LinkerScript = {
+      src = pkgs.fetchFromGitHub {
+        owner = "jbw3";
+        repo = "SublimeTextLinkerSyntax";
+        rev = "041d15667eca429afd4ff3df3b8f8617a66fc410";
+        hash = "sha256-sygtTWNZJyiRtDdPA8etjDzN0CSrhGUPSAJ6QVqspls=";
+      };
+      file = "LinkerScript.sublime-syntax";
+    };
+    WebAssembly = {
+      src = pkgs.fetchFromGitHub {
+        owner = "bathos";
+        repo = "wast-sublime-syntax";
+        rev = "6eb7302b23db58052bdc308b046d2ae0bef5e25a";
+        hash = "sha256-eprrkcPQhpZIaFQ85isYNFvANjIKQ/VDS/2pBoXrXrk=";
+      };
+      file = "wast.sublime-syntax";
+    };
+  };
+
   preservation.preserveAt = {
     data.directories = [
       "Projects"
