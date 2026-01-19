@@ -114,8 +114,11 @@ in {
 
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "backup" ''
-        set -a # auto export
-        ${lib.optionalString (cfg.envFile != null) "source ${cfg.envFile}"}
+        ${lib.optionalString (cfg.envFile != null) ''
+          set -a
+          source ${cfg.envFile} 2>/dev/null || echo 'warning: failed to load env file!' 1>&2
+          set +a
+        ''}
         exec ${cfg.rusticPackage}/bin/rustic -P system -P manual "$@"
       '')
     ];
