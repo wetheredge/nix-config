@@ -17,6 +17,11 @@ in {
       default = null;
     };
 
+    extraSources = mkOption {
+      type = types.listOf types.str;
+      default = [];
+    };
+
     config = {
       repository = {
         repository = mkOption {
@@ -92,10 +97,12 @@ in {
 
         snapshots = [
           {
-            sources = [
-              config.preservation.preserveAt.data.persistentStoragePath
-              config.preservation.preserveAt.state.persistentStoragePath
-            ];
+            sources =
+              [
+                config.preservation.preserveAt.data.persistentStoragePath
+                config.preservation.preserveAt.state.persistentStoragePath
+              ]
+              ++ cfg.extraSources;
           }
         ];
       };

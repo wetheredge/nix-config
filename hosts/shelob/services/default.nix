@@ -10,5 +10,6 @@
     ./miniflux.nix
     ./ntfy.nix
     ./pds.nix
+    ./postgresql.nix
   ];
 }
