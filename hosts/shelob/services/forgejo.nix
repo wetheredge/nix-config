@@ -1,8 +1,13 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.services.forgejo;
 in {
   services.forgejo = {
     enable = true;
+    package = pkgs.forgejo;
     repositoryRoot = "/var/lib/git";
     settings = {
       server = rec {
