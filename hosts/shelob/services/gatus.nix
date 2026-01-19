@@ -91,7 +91,7 @@ in {
             "[BODY].healthy == true")
           (mkService
             "Miniflux"
-            "https://miniflux.wetheredge.com/healthcheck"
+            "https://feeds.wetheredge.com/healthcheck"
             "[BODY] == OK")
           (mkService
             "pds"

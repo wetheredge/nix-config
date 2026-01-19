@@ -4,7 +4,7 @@
   ...
 }: let
   cfg = config.services.miniflux;
-  domain = "miniflux.wetheredge.com";
+  domain = "feeds.wetheredge.com";
 in {
   services.miniflux = {
     enable = true;

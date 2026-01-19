@@ -89,7 +89,7 @@
             client_id: '${getSecret "oidc.client.miniflux.id"}'
             client_secret: '${getSecret "oidc.client.miniflux.secret"}'
             redirect_uris:
-              - 'https://miniflux.wetheredge.com/oauth2/oidc/callback'
+              - 'https://feeds.wetheredge.com/oauth2/oidc/callback'
             scopes:
               - openid
               - email
