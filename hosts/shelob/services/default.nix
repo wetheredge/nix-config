@@ -3,7 +3,6 @@
     ./authelia.nix
     ./caddy.nix
     ./forgejo.nix
-    ./freshrss.nix
     ./gatus.nix
     ./knot.nix
     ./linkding.nix

@@ -78,10 +78,6 @@ in {
             "https://git.wetheredge.com/api/v1/version"
             "has([BODY].version) == true")
           (mkService
-            "FreshRSS"
-            "https://feeds.wetheredge.com/api/greader.php"
-            "[BODY] == OK")
-          (mkService
             "knot"
             "https://knot.wetheredge.com/xrpc/sh.tangled.knot.version"
             "has([BODY].version) == true")
