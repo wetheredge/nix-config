@@ -65,6 +65,10 @@
         jwks:
           - key: |-
               ${getSecretBlock 5 "oidc.rsa_key"}
+        claims_policies:
+          # https://www.authelia.com/integration/openid-connect/clients/grafana/#configuration-escape-hatch
+          grafana:
+            id_token: ['email', 'name', 'groups', 'preferred_username']
         clients:
           - client_name: Forgejo
             client_id: '${getSecret "oidc.client.forgejo.id"}'
@@ -72,6 +76,14 @@
             redirect_uris:
               - 'https://git.wetheredge.com/user/oauth2/authelia/callback'
             pre_configured_consent_duration: '6 months'
+            require_pkce: true
+            pkce_challenge_method: S256
+          - client_name: Grafana
+            client_id: '${getSecret "oidc.client.grafana.id"}'
+            client_secret: '${getSecret "oidc.client.grafana.secret"}'
+            redirect_uris:
+              - 'https://grafana.wetheredge.com/login/generic_oauth'
+            claims_policy: grafana
             require_pkce: true
             pkce_challenge_method: S256
           - client_name: Linkding
