@@ -17,6 +17,10 @@ in {
     environmentFile = config.age.secrets.caddy-env-shelob.path;
     globalConfig = ''
       acme_dns cloudflare {env.CF_API_TOKEN}
+
+      metrics {
+        per_host
+      }
     '';
 
     virtualHosts = {
