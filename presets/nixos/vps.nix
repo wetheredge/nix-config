@@ -48,18 +48,18 @@ in {
     enable = lib.mkDefault false;
     openFirewall = false;
     settings = {
-      AllowUsers = [];
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
   };
 
-  services.tailscale = {
+  services.tailscale = rec {
     authKeyFile = config.age.secrets.tailscale-auth-key.path;
     useRoutingFeatures = "server";
     extraSetFlags = [
       "--ssh"
     ];
+    extraUpFlags = extraSetFlags;
   };
 
   # Based on <https://github.com/stendler/systemd-ntfy-poweronoff/blob/f1038b7d3277824e4717a71fd081f6dfdd2627f7/ntfy-startup%40.service>

@@ -92,6 +92,7 @@
 
     hosts = {
       eowyn = "x86_64-linux";
+      sauron = "x86_64-linux";
       shelob = "x86_64-linux";
     };
 

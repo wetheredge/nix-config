@@ -19,6 +19,10 @@ dry-build host=`hostname`:
 build host=`hostname`:
     nixos-rebuild build --flake .#{{ host }}
 
+build-image host *args='':
+    nix build .#nixosConfigurations.{{ host }}.config.system.build.diskoImagesScript
+    ./result {{ args }}
+
 diff:
     nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result
 
