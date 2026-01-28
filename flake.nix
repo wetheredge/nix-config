@@ -13,7 +13,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     disko = {
-      url = "github:nix-community/disko/v1.12.0";
+      url = "github:nix-community/disko/v1.13.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
