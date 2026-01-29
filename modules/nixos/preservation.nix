@@ -17,7 +17,7 @@ in {
     package = mkOption {
       type = types.package;
       description = "Package to use for demolition";
-      inherit (demolition.packages.${pkgs.system}) default;
+      inherit (demolition.packages.${pkgs.stdenv.hostPlatform.system}) default;
     };
 
     device = mkOption {
