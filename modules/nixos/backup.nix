@@ -84,6 +84,7 @@ in {
       inherit (lib.filterAttrsRecursive (_: v: v != null) cfg.config) repository forget;
 
       backup = {
+        init = true;
         exclude-if-present = ["CACHEDIR.TAG" ".rustic-skip"];
         globs = ["!node_modules" "!zig-cache" "!CMakeFiles"];
         host = let
