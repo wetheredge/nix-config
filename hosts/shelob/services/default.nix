@@ -8,7 +8,6 @@
     ./linkding.nix
     ./miniflux.nix
     ./monitoring.nix
-    ./ntfy.nix
     ./pds.nix
     ./postgresql.nix
   ];

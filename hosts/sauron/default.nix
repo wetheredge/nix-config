@@ -10,6 +10,8 @@
     ./services
   ];
 
+  services.wren.caddy.enable = true;
+
   preservation.enable = true;
   settings.demolition = {
     enable = true;

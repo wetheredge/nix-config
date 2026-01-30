@@ -85,6 +85,23 @@ in {
 
   settings.demolition.keep.count = lib.mkDefault "3";
 
+  services.caddy = {
+    package = lib.mkDefault (pkgs.caddy.withPlugins {
+      hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
+      plugins = [
+        "github.com/caddy-dns/cloudflare@v0.2.2"
+      ];
+    });
+    environmentFile = lib.mkDefault config.age.secrets."caddy-env-${hostName}".path;
+    globalConfig = lib.mkDefault ''
+      acme_dns cloudflare {env.CF_API_TOKEN}
+
+      metrics {
+        per_host
+      }
+    '';
+  };
+
   services.wren.backup = let
     backupSecret = suffix: config.age.secrets."backup-${hostName}-${suffix}".path;
   in {
