@@ -110,11 +110,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767048006,
-        "narHash": "sha256-2b3htynt1Sxqj38yVHBhX7VIMBbUEVqN7rqziZXndqE=",
+        "lastModified": 1769810177,
+        "narHash": "sha256-8vcWWImOMWdGGAEdsXQnR1WruQ5mb2C/M35ziZ3rz8g=",
         "owner": "wetheredge",
         "repo": "demolition",
-        "rev": "c67e31acb690cd6daa668ce69fe42d4e956b9690",
+        "rev": "051d901f621909763408373ec9f3b317a6c0a789",
         "type": "github"
       },
       "original": {
