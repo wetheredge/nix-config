@@ -34,6 +34,9 @@ in {
         ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
         SHOW_REGISTRATION_BUTTON = false;
       };
+
+      actions.ENABLED = false;
+      packages.ENABLED = false;
     };
   };
 
