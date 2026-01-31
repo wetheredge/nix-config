@@ -102,6 +102,8 @@ in {
     '';
   };
 
+  services.redis.package = lib.mkDefault pkgs.valkey;
+
   services.wren.backup = let
     backupSecret = suffix: config.age.secrets."backup-${hostName}-${suffix}".path;
   in {
