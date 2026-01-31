@@ -146,10 +146,15 @@ in {
     ${domain}.extraConfig = "reverse_proxy unix/${socket}";
   };
 
-  preservation.preserveAt.state.files = [
-    {
-      file = database;
-      inherit (cfg) user group;
-    }
-  ];
+  preservation.preserveAt = {
+    state.files = [
+      {
+        file = database;
+        inherit (cfg) user group;
+      }
+    ];
+    cache.directories = [
+      redisCfg.settings.dir
+    ];
+  };
 }
