@@ -20,8 +20,8 @@
     choose # better cut
     delta # pretty diffs
     doggo # DNS client
-    duf # device/partition usage stats
     dust # file/directory size stats
+    dysk # filesystem usage table
     file # guess file types
     gping # graphical ping
     hexyl # hex viewer
