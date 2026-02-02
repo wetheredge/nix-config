@@ -105,7 +105,9 @@
       formatting = treefmtEval.${system}.config.build.check self;
     });
 
-    nixosConfigurations = builtins.listToAttrs (lib.mapAttrsToList (host: system: {
+    nixosConfigurations =
+      hosts
+      |> lib.mapAttrsToList (host: system: {
         name = host;
         value = lib.nixosSystem {
           inherit system;
@@ -154,6 +156,6 @@
           ];
         };
       })
-      hosts);
+      |> lib.listToAttrs;
   };
 }

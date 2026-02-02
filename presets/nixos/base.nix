@@ -12,7 +12,11 @@ in {
       trusted-public-keys = [
         "wetheredge.com-0:4JvkPV66FEugl7ay+F0dFqR5SXcMMfSY245ZS2QYBmA="
       ];
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "flakes"
+        "nix-command"
+        "pipe-operator"
+      ];
     };
     gc = {
       automatic = true;
