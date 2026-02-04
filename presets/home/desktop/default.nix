@@ -9,6 +9,7 @@
     ./beancount.nix
     ./eww
     ./firefox.nix
+    ./fitness.nix
     ./kickoff
     ./media.nix
     ./niri.nix
