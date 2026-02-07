@@ -154,7 +154,10 @@ in {
       }
     ];
     cache.directories = [
-      redisCfg.settings.dir
+      {
+        directory = redisCfg.settings.dir;
+        inherit (redisCfg) user group;
+      }
     ];
   };
 }
