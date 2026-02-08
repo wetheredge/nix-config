@@ -1,6 +1,5 @@
 {config, ...}: let
-  inherit (config.services) grafana;
-  inherit (config.services.prometheus) exporters;
+  cfg = config.services.grafana;
 in {
   services.grafana = {
     enable = true;
@@ -47,48 +46,16 @@ in {
   };
 
   services.caddy.virtualHosts = {
-    "${grafana.settings.server.domain}" = {
-      extraConfig = "reverse_proxy unix/${grafana.settings.server.socket}";
+    "${cfg.settings.server.domain}" = {
+      extraConfig = "reverse_proxy unix/${cfg.settings.server.socket}";
       # Bind locally + tailscale
-      listenAddresses = ["127.0.0.1" "::1" "100.104.193.124"];
+      listenAddresses = ["127.0.0.1" "::1" "100.121.216.28"];
     };
-  };
-
-  services.prometheus = {
-    enable = true;
-    port = 3004;
-
-    globalConfig = {
-      scrape_interval = "15s";
-    };
-
-    scrapeConfigs = [
-      {
-        job_name = "node";
-        static_configs = [
-          {targets = ["localhost:${toString exporters.node.port}"];}
-        ];
-      }
-      {
-        job_name = "caddy";
-        static_configs = [
-          {targets = ["localhost:2019"];}
-        ];
-      }
-    ];
-  };
-
-  services.prometheus.exporters.node = {
-    enable = true;
-    port = 9100;
-    enabledCollectors = [
-      "systemd"
-    ];
   };
 
   preservation.preserveAt.data.directories = [
     {
-      directory = grafana.dataDir;
+      directory = cfg.dataDir;
       user = "grafana";
       group = "grafana";
     }

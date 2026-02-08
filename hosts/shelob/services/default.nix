@@ -7,7 +7,6 @@
     ./knot.nix
     ./linkding.nix
     ./miniflux.nix
-    ./monitoring.nix
     ./pds.nix
     ./postgresql.nix
   ];
