@@ -30,9 +30,6 @@
     # Chat
     signal-desktop
     dorion
-
-    # For rbw
-    pinentry-curses
   ];
 
   xdg.userDirs.enable = true;
@@ -53,9 +50,6 @@
   };
   services.ssh-agent.enable = true;
 
-  # TODO: configure with nix
-  programs.rbw.enable = true;
-
   programs.wezterm = {
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
@@ -71,21 +65,12 @@
         "nix/config"
         "nix/secrets"
       ];
-      files = [
-        ".config/rbw/config.json"
-      ];
     };
     state = {
       directories = [
         ".config/Signal"
         ".config/dorion"
         ".local/share/dorion"
-      ];
-      files = [
-        {
-          file = ".local/share/rbw/device_id";
-          mode = "0600";
-        }
       ];
     };
     cache = {
