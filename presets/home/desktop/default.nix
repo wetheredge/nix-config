@@ -29,7 +29,6 @@
 
     # Chat
     signal-desktop
-    dorion
   ];
 
   xdg.userDirs.enable = true;
@@ -69,13 +68,6 @@
     state = {
       directories = [
         ".config/Signal"
-        ".config/dorion"
-        ".local/share/dorion"
-      ];
-    };
-    cache = {
-      directories = [
-        ".cache/dorion"
       ];
     };
   };
