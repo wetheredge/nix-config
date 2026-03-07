@@ -1,10 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -43,12 +42,12 @@
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     tangled = {
       url = "git+https://tangled.org/tangled.org/core";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.gomod2nix.follows = "gomod2nix";
     };
 
@@ -67,6 +66,7 @@
     };
     gomod2nix = {
       url = "github:nix-community/gomod2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
@@ -80,10 +80,9 @@
     inherit (nixpkgs) lib;
     vars = import ./vars.nix;
 
-    args = system: rec {
+    args = rec {
       base = {
         inherit vars;
-        pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
         inherit (inputs) demolition;
       };
       nixos = base // {inherit (inputs) nixos-hardware;};
@@ -111,7 +110,7 @@
         name = host;
         value = lib.nixosSystem {
           inherit system;
-          specialArgs = (args system).nixos;
+          specialArgs = args.nixos;
           modules = [
             inputs.disko.nixosModules.disko
             inputs.ragenix.nixosModules.default
@@ -128,7 +127,6 @@
             {
               nixpkgs.overlays = [
                 inputs.niri.overlays.niri
-                (_: _: {unstable = import inputs.nixpkgs-unstable {inherit system;};})
               ];
             }
 
@@ -141,7 +139,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = (args system).home;
+                extraSpecialArgs = args.home;
 
                 sharedModules = [
                   ./modules/home

@@ -11,7 +11,7 @@
 in {
   services.bluesky-pds = {
     enable = true;
-    package = pkgs.unstable.bluesky-pds;
+    package = pkgs.bluesky-pds;
     pdsadmin.enable = true;
     settings = {
       PDS_HOSTNAME = hostname;
