@@ -27,6 +27,7 @@
     hexyl # hex viewer
     jless # TUI json browser/viewer
     miniserve # simple HTTP server
+    moreutils # sponge, vidir, etc
     ncdu # interactive disk usage analyzer
     ouch # Obvious Unified Compression Helper
     procs # process management
