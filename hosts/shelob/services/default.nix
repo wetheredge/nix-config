@@ -1,5 +1,6 @@
 {
   imports = [
+    ./archive.nix
     ./authelia.nix
     ./caddy.nix
     ./forgejo.nix

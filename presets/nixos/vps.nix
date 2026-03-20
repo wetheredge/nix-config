@@ -93,7 +93,7 @@ in {
       ];
     });
     environmentFile = lib.mkDefault config.age.secrets."caddy-env-${hostName}".path;
-    globalConfig = lib.mkDefault ''
+    globalConfig = ''
       acme_dns cloudflare {env.CF_API_TOKEN}
 
       metrics {
