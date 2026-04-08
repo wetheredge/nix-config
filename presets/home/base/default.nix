@@ -14,6 +14,7 @@
     homeDirectory = "/home/${vars.user}";
     preferXdgDirectories = true;
   };
+  xdg.userDirs.setSessionVariables = true;
 
   home.packages = with pkgs; [
     age # encryption
