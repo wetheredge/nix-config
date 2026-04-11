@@ -3,10 +3,9 @@
 in {
   services.linkding = {
     enable = true;
-    rev = "sha256:8404735cf38363507c478ebb726c67c58023564609552b9cf52eefc38ad37863"; # 1.45-alpine
     port = 3003;
     environmentFile = config.age.secrets.linkding-env.path;
-    environment = {
+    settings = {
       LD_FAVICON_PROVIDER = "https://icons.duckduckgo.com/ip3/{domain}.ico";
 
       # NOTE: must configure a superuser account with an email matching an OIDC user before first run:
@@ -25,6 +24,6 @@ in {
   };
 
   preservation.preserveAt.data.directories = [
-    cfg.stateDirectory
+    cfg.dataDir
   ];
 }
