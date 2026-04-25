@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }: {
@@ -166,11 +167,14 @@
         };
       };
     };
+
+    # Always use new 26.05 behavior
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
   };
 
   preservation.preserveAt = {
     state.directories = [
-      ".mozilla"
+      ".config/mozilla"
     ];
     cache.directories = [
       ".cache/mozilla"
