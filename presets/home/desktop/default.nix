@@ -10,6 +10,7 @@
     ./eww
     ./firefox.nix
     ./fitness.nix
+    ./fonts.nix
     ./kickoff
     ./media.nix
     ./niri.nix

@@ -1,15 +1,13 @@
-local wezterm = require("wezterm")
-
 return {
 	-- TODO: fonts
-	-- harfbuzz_features = { 'zero', 'cv02', 'cv03' },
-	-- font = wezterm.font_with_fallback {
-	--   'Maple Mono',
-	--   'Twitter Color Emoji',
-	--   'Nerd Font Symbols',
-	-- },
-	-- font_size = 8.5,
-	-- line_height = 1.2,
+	-- harfbuzz_features = { "zero", "cv02", "cv03" },
+	font = wezterm.font_with_fallback({
+		"Maple Mono",
+		"Twitter Color Emoji",
+		-- "Nerd Font Symbols",
+	}),
+	font_size = 10,
+	line_height = 1.2,
 	color_scheme = "Catppuccin Mocha",
 
 	enable_tab_bar = false,
