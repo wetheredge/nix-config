@@ -14,6 +14,7 @@
     ./kickoff
     ./media.nix
     ./niri.nix
+    ./theme.nix
   ];
 
   home.packages = with pkgs; [
