@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   programs.eww = {
     enable = true;
-    configDir = ./config;
+    scssConfig = builtins.readFile ./eww.scss;
+    yuckConfig = builtins.readFile ./eww.yuck;
   };
 
   systemd.user.services = let
