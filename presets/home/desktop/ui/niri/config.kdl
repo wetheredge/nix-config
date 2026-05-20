@@ -76,6 +76,18 @@ window-rule {
 	block-out-from "screen-capture"
 }
 
+window-rule {
+	match app-id="^$" title="^GoldenCheetah$"
+	open-floating true
+	open-focused false
+	opacity 1.0
+	clip-to-geometry false
+	border { off; }
+	focus-ring { off; }
+	shadow { off; }
+	baba-is-float true
+}
+
 layer-rule {
 	match namespace="kickoff"
 	background-effect {
