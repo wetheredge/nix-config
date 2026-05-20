@@ -24,6 +24,8 @@ cursor {
 }
 
 layout {
+	empty-workspace-above-first
+
 	default-column-width { proportion 0.5; }
 	preset-column-widths {
 		proportion 0.33333
