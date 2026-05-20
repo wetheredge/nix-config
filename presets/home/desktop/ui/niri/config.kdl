@@ -76,6 +76,14 @@ window-rule {
 	block-out-from "screen-capture"
 }
 
+layer-rule {
+	match namespace="kickoff"
+	background-effect {
+		blur true
+		xray false
+	}
+}
+
 binds {
 	Mod+Shift+Slash { show-hotkey-overlay; }
 
