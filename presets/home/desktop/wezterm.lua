@@ -1,3 +1,9 @@
+-- Based on <https://wezterm.org/config/lua/wezterm.gui/get_appearance.html>
+local function get_color_scheme()
+	local appearance = wezterm.gui and wezterm.gui.get_appearance() or "Dark"
+	return appearance:find("Dark") and "Catppuccin Mocha" or "Catppuccin Latte"
+end
+
 return {
 	-- TODO: fonts
 	-- harfbuzz_features = { "zero", "cv02", "cv03" },
@@ -8,7 +14,7 @@ return {
 	}),
 	font_size = 10,
 	line_height = 1.2,
-	color_scheme = "Catppuccin Mocha",
+	color_scheme = get_color_scheme(),
 
 	enable_tab_bar = false,
 	enable_scroll_bar = true,

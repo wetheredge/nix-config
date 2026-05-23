@@ -1,0 +1,22 @@
+// catppuccin mocha
+
+overview {
+	backdrop-color "#11111b" // crust
+}
+
+layout {
+	background-color "#181825" // mantle
+	insert-hint { color "#74c7ec80"; } // sapphire
+
+	border {
+		active-color "#b4befe" // lavender
+		inactive-color "#313244" // surface0
+		urgent-color "#f38ba8" // red
+	}
+
+	focus-ring {
+		active-color "transparent"
+		// on inactive monitors
+		inactive-color "#6c7086" // overlay0
+	}
+}

@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -8,7 +9,7 @@
     defaultEditor = true;
 
     settings = {
-      theme = "catppuccin_mocha";
+      theme = lib.mkDefault "base16_terminal";
 
       editor = {
         bufferline = "multiple";

@@ -50,7 +50,11 @@
   };
   services.ssh-agent.enable = true;
 
-  xdg.configFile."niri/config.kdl".text = builtins.readFile ./niri.kdl;
+  xdg.configFile = {
+    "niri/config.kdl".source = ./niri/config.kdl;
+    "niri/colors/light.kdl".source = ./niri/light.kdl;
+    "niri/colors/dark.kdl".source = ./niri/dark.kdl;
+  };
 
   programs.wezterm = {
     enable = true;

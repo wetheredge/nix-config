@@ -1,0 +1,22 @@
+// catppuccin latte
+
+overview {
+	backdrop-color "#dce0e8" // crust
+}
+
+layout {
+	background-color "#e6e9ef" // mantle
+	insert-hint { color "#209fb580"; } // sapphire
+
+	border {
+		active-color "#7287fd" // lavender
+		inactive-color "#ccd0da" // surface0
+		urgent-color "#d20f39" // red
+	}
+
+	focus-ring {
+		active-color "transparent"
+		// on inactive monitors
+		inactive-color "#9ca0b0" // overlay0
+	}
+}
