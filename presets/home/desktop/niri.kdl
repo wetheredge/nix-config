@@ -1,0 +1,153 @@
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"
+
+hotkey-overlay {
+	skip-at-startup
+}
+
+input {
+	keyboard {
+		xkb {
+			options "compose:sclk"
+		}
+	}
+
+	touchpad {
+		tap
+	}
+}
+
+cursor {
+	hide-after-inactive-ms 10000
+	hide-when-typing true
+}
+
+layout {
+	default-column-width { proportion 0.5; }
+	preset-column-widths {
+		proportion 0.33333
+		proportion 0.5
+		proportion 0.66667
+	}
+
+	gaps 16
+	struts {
+		top -8
+		bottom -8
+		left 64
+		right 32
+	}
+
+	background-color "#181825" // mantle
+	insert-hint { color "#74c7ec80"; } // sapphire
+	border {
+		width 1
+		active-color "#b4befe" // lavender
+		inactive-color "#313244" // surface0
+		urgent-color "#f38ba8" // red
+	}
+	focus-ring {
+		width 0.5
+		active-color "transparent"
+		// on inactive monitors
+		inactive-color "#6c7086" // overlay0
+	}
+}
+
+overview {
+	backdrop-color "#11111b" // crust
+}
+
+// 8px rounded corners
+prefer-no-csd
+window-rule {
+	geometry-corner-radius 8
+	clip-to-geometry true
+}
+
+window-rule {
+	match is-focused=false
+	opacity 0.92
+}
+
+window-rule {
+	match app-id="^org\\.keepassxc\\.KeePassXC$"
+	match app-id="^org\\.gnome\\.World\\.Secrets$"
+	match app-id="^Bitwarden$"
+	block-out-from "screen-capture"
+}
+
+binds {
+	Mod+Shift+Slash { show-hotkey-overlay; }
+
+	Mod+Return { spawn "wezterm" "start" "--always-new-process"; }
+	Mod+W { spawn "firefox"; }
+	Mod+D { spawn-sh "~/.config/kickoff/menu.sh | kickoff --from-stdin --history ~/.cache/kickoff/menu.csv"; }
+	// TODO: swaylock
+	// Mod+Alt+L { spawn "swaylock"; }
+
+	XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK" "0.1+"; }
+	XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK" "0.1-"; }
+	XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK" "toggle"; }
+	XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE" "toggle"; }
+	Mod+TouchpadScrollDown allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK" "0.02-"; }
+	Mod+TouchpadScrollUp allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK" "0.02+"; }
+
+	XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--exponent=1.5" "set" "+5%"; }
+	XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--exponent=1.5" "set" "5%-"; }
+
+	// F13 mapped from super
+	XF86Tools { toggle-overview; }
+	Mod+Q { close-window; }
+	Mod+F { fullscreen-window; }
+	Mod+M { maximize-column; }
+	Mod+C { center-column; }
+	Mod+Shift+E { quit; }
+	Mod+Shift+S { power-off-monitors; }
+
+	Print { screenshot show-pointer=false; }
+	Shift+Print { screenshot-window write-to-disk=true; }
+	Ctrl+Print { screenshot-screen write-to-disk=true; }
+
+	Mod+R { switch-preset-column-width; }
+	Mod+Equal { set-column-width "+10%"; }
+	Mod+Minus { set-column-width "-10%"; }
+
+	Mod+Shift+R { reset-window-height; }
+	Mod+Shift+Equal { set-window-height "+10%"; }
+	Mod+Shift+Minus { set-window-height "-10%"; }
+
+	Mod+BracketLeft { consume-or-expel-window-left; }
+	Mod+BracketRight { consume-or-expel-window-right; }
+
+	Mod+Home { focus-column-first; }
+	Mod+End { focus-column-last; }
+	Mod+Shift+Home { move-column-to-first; }
+	Mod+Shift+End { move-column-to-last; }
+
+	Mod+H { focus-column-left; }
+	Mod+J { focus-window-down; }
+	Mod+K { focus-window-up; }
+	Mod+L { focus-column-right; }
+	Mod+Shift+H { move-column-left; }
+	Mod+Shift+J { move-window-down; }
+	Mod+Shift+K { move-window-up; }
+	Mod+Shift+L { move-column-right; }
+
+	Mod+Ctrl+H { focus-monitor-left; }
+	Mod+Ctrl+J { focus-monitor-down; }
+	Mod+Ctrl+K { focus-monitor-up; }
+	Mod+Ctrl+L { focus-monitor-right; }
+	Mod+Ctrl+Shift+H { move-column-to-monitor-left; }
+	Mod+Ctrl+Shift+J { move-column-to-monitor-down; }
+	Mod+Ctrl+Shift+K { move-column-to-monitor-up; }
+	Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
+
+	Mod+N { focus-workspace-down; }
+	Mod+P { focus-workspace-up; }
+	Mod+Shift+N { move-column-to-workspace-down; }
+	Mod+Shift+P { move-column-to-workspace-up; }
+	Mod+Ctrl+N { move-workspace-down; }
+	Mod+Ctrl+P { move-workspace-up; }
+}
+
+include optional=true "host.kdl"

@@ -13,7 +13,6 @@
     ./fonts.nix
     ./kickoff
     ./media.nix
-    ./niri.nix
     ./theme.nix
   ];
 
@@ -50,6 +49,8 @@
     };
   };
   services.ssh-agent.enable = true;
+
+  xdg.configFile."niri/config.kdl".text = builtins.readFile ./niri.kdl;
 
   programs.wezterm = {
     enable = true;

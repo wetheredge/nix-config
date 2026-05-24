@@ -39,12 +39,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     tangled = {
       url = "git+https://tangled.org/tangled.org/core";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,7 +110,6 @@
             inputs.ragenix.nixosModules.default
             inputs.secrets.nixosModules.default
             inputs.preservation.nixosModules.preservation
-            inputs.niri.nixosModules.niri
             inputs.tangled.nixosModules.knot
             inputs.home-manager.nixosModules.home-manager
 
@@ -124,11 +117,6 @@
 
             ./overlays/lix.nix
             ./overlays/locales
-            {
-              nixpkgs.overlays = [
-                inputs.niri.overlays.niri
-              ];
-            }
 
             ./presets/nixos/base.nix
             ./hosts/${host}
