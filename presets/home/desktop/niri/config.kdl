@@ -42,8 +42,16 @@ layout {
 	border {
 		width 1
 	}
+
 	focus-ring {
 		width 0.5
+	}
+
+	shadow {
+		on
+		softness 3
+		spread 0
+		offset x=0 y=0
 	}
 }
 

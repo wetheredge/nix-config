@@ -10,7 +10,7 @@ layout {
 
 	border {
 		active-color "#b4befe" // lavender
-		inactive-color "#313244" // surface0
+		inactive-color "#45475a" // surface1
 		urgent-color "#f38ba8" // red
 	}
 
@@ -18,5 +18,10 @@ layout {
 		active-color "transparent"
 		// on inactive monitors
 		inactive-color "#6c7086" // overlay0
+	}
+
+	shadow {
+		color "#b4befe" // lavender
+		inactive-color "transparent"
 	}
 }

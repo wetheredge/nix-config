@@ -1,7 +1,7 @@
 // catppuccin latte
 
 overview {
-	backdrop-color "#dce0e8" // crust
+	backdrop-color "#ccd0da" // surface0
 }
 
 layout {
@@ -10,7 +10,7 @@ layout {
 
 	border {
 		active-color "#7287fd" // lavender
-		inactive-color "#ccd0da" // surface0
+		inactive-color "#bcc0cc" // surface1
 		urgent-color "#d20f39" // red
 	}
 
@@ -18,5 +18,10 @@ layout {
 		active-color "transparent"
 		// on inactive monitors
 		inactive-color "#9ca0b0" // overlay0
+	}
+
+	shadow {
+		color "#7287fd" // lavender
+		inactive-color "transparent"
 	}
 }
