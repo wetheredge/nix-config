@@ -1,21 +1,24 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # Needed for gtk-launch for kickoff/menu.sh
-    gtk3
+    (writeShellScriptBin "kickoff-launcher" ''
+      echo $XDG_DATA_DIRS \
+        | sed 's|:|/applications\n|g' \
+        | xargs ${fd}/bin/fd -tf -tl -e desktop . 2>/dev/null \
+        | xargs ${ripgrep}/bin/rg --files-without-match -F NoDisplay=true \
+        | while read file; do echo "$(${ripgrep}/bin/rg -m 1 ^Name= "$file" | cut -d= -f2)=${gtk3}/bin/gtk-launch $${file##*/}"; done \
+        | sort --ignore-case --unique \
+        | kickoff --from-stdin --history ~/.local/share/kickoff/menu.csv
+    '')
   ];
 
-  xdg.configFile."kickoff/menu.sh" = {
-    source = ./menu.sh;
-    executable = true;
-  };
   programs.kickoff = {
     enable = true;
     settings = {
       prompt = ">";
       padding = 150;
 
-      # fonts = [ "Source Sans Pro" "sans-serif" ];
-      # font_size = 30;
+      fonts = ["sans-serif"];
+      font_size = 30;
 
       # Catppuccin latte
       colors = {
@@ -39,7 +42,7 @@
     };
   };
 
-  preservation.preserveAt.state.files = [
-    ".cache/kickoff/menu.csv"
+  preservation.preserveAt.state.directories = [
+    ".local/share/kickoff"
   ];
 }

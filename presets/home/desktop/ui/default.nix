@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./eww
-    ./kickoff
+    ./kickoff.nix
     ./theme.nix
   ];
 

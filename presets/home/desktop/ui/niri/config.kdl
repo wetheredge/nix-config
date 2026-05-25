@@ -79,7 +79,7 @@ binds {
 
 	Mod+Return { spawn "wezterm" "start" "--always-new-process"; }
 	Mod+W { spawn "firefox"; }
-	Mod+D { spawn-sh "~/.config/kickoff/menu.sh | kickoff --from-stdin --history ~/.cache/kickoff/menu.csv"; }
+	Mod+D { spawn "kickoff-launcher"; }
 	// TODO: swaylock
 	// Mod+Alt+L { spawn "swaylock"; }
 
