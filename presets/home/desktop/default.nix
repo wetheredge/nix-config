@@ -11,6 +11,7 @@
     ./fitness.nix
     ./media.nix
     ./ui
+    ./wezterm.nix
   ];
 
   home.packages = with pkgs; [
@@ -39,11 +40,6 @@
     };
   };
   services.ssh-agent.enable = true;
-
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
-  };
 
   preservation.preserveAt = with config.xdg.userDirs; let
     toRelative = lib.removePrefix config.home.homeDirectory;
