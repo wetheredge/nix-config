@@ -47,6 +47,7 @@ in {
   # Disable default packages
   environment.defaultPackages = [];
   programs.nano.enable = false;
+  fonts.enableDefaultPackages = false;
 
   services.userborn.enable = true;
   users = {

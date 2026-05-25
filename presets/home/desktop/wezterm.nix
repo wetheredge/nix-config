@@ -2,8 +2,7 @@
   programs.wezterm = {
     enable = true;
     settings = {
-      # TODO: fonts
-      # harfbuzz_features = [ "zero" "cv02" "cv03" ];
+      harfbuzz_features = ["zero" "cv02" "cv03" "cv31" "ss03" "ss11"];
       font = lib.generators.mkLuaInline ''
         wezterm.font_with_fallback({
           "Maple Mono",

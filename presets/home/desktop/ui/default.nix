@@ -14,6 +14,9 @@
 
     inter
     maple-mono.truetype
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
     twitter-color-emoji
   ];
 
@@ -28,7 +31,8 @@
     defaultFonts = {
       emoji = ["Twitter Color Emoji"];
       monospace = ["Maple Mono"];
-      sansSerif = ["InterVariable" "Inter"];
+      sansSerif = ["InterVariable" "Inter" "Noto Sans" "Noto Sans CJK SC"];
+      serif = ["Noto Serif" "Noto Serif CJK SC"];
     };
   };
 }
