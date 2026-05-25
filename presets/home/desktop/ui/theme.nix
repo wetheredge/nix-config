@@ -6,12 +6,14 @@
 }: let
   interpTheme = "$(${pkgs.darkman}/bin/darkman get)";
   darkLight = var: dark: light: ''test "${var}" = 'dark' && echo ${dark} || echo ${light}'';
+  linkTheme = dir: ext: var: "ln $VERBOSE_ARG -sf colors/${var}.${ext} ~/.config/${dir}/colors.${ext}";
 
   helixThemeDir = "~/.config/helix/themes";
   helixSystemToml = "${helixThemeDir}/system.toml";
   setHelixTheme = var: ''echo "inherits = '$(${darkLight var "catppuccin_mocha" "catppuccin_latte"})'" > ${helixSystemToml}'';
 
-  setNiriTheme = var: ''ln -sf "$HOME/.config/niri/colors/${var}.kdl" ~/.config/niri/colors.kdl'';
+  setNiriTheme = linkTheme "niri" "kdl";
+  setMakoTheme = linkTheme "mako" "conf";
 in {
   gtk.enable = true;
 
@@ -37,6 +39,10 @@ in {
         pkill -USR1 hx
       '';
       niri = setNiriTheme "$1";
+      mako = ''
+        ${setMakoTheme "$1"}
+        makoctl reload
+      '';
     };
   };
 
@@ -51,6 +57,9 @@ in {
     '';
     initialNiriTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
       run ${setNiriTheme interpTheme}
+    '';
+    initialMakoTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      run ${setMakoTheme interpTheme}
     '';
   };
 

@@ -3,10 +3,12 @@
     ./eww
     ./kickoff.nix
     ./theme.nix
+    ./mako.nix
   ];
 
   home.packages = with pkgs; [
     brightnessctl
+    libnotify
     swayimg
     wev
     wl-clipboard-rs
