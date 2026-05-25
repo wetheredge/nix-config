@@ -7,13 +7,10 @@
   imports = [
     ./atuin.nix
     ./beancount.nix
-    ./eww
     ./firefox.nix
     ./fitness.nix
-    ./fonts.nix
-    ./kickoff
     ./media.nix
-    ./theme.nix
+    ./ui
   ];
 
   home.packages = with pkgs; [
@@ -22,13 +19,6 @@
     nvd
     ragenix
 
-    brightnessctl
-    swayimg
-    wev
-    wl-clipboard-rs
-    xwayland-satellite
-
-    # Chat
     signal-desktop
   ];
 
@@ -49,12 +39,6 @@
     };
   };
   services.ssh-agent.enable = true;
-
-  xdg.configFile = {
-    "niri/config.kdl".source = ./niri/config.kdl;
-    "niri/colors/light.kdl".source = ./niri/light.kdl;
-    "niri/colors/dark.kdl".source = ./niri/dark.kdl;
-  };
 
   programs.wezterm = {
     enable = true;
