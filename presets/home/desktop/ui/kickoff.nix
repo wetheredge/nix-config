@@ -5,7 +5,7 @@
         | sed 's|:|/applications\n|g' \
         | xargs ${fd}/bin/fd -tf -tl -e desktop . 2>/dev/null \
         | xargs ${ripgrep}/bin/rg --files-without-match -F NoDisplay=true \
-        | while read file; do echo "$(${ripgrep}/bin/rg -m 1 ^Name= "$file" | cut -d= -f2)=${gtk3}/bin/gtk-launch $${file##*/}"; done \
+        | while read file; do echo "$(${ripgrep}/bin/rg -m 1 ^Name= "$file" | cut -d= -f2)=${gtk3}/bin/gtk-launch ''${file##*/}"; done \
         | sort --ignore-case --unique \
         | kickoff --from-stdin --history ~/.local/share/kickoff/menu.csv
     '')
