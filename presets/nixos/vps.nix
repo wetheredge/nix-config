@@ -87,7 +87,7 @@ in {
 
   services.caddy = {
     package = lib.mkDefault (pkgs.caddy.withPlugins {
-      hash = "sha256-dNmccsad8nFm2X9w/6mdgAdhPSquNm6oVhf3sNc46SQ=";
+      hash = "sha256-qEA6058svI8Q6yE97OkfnGWC8ayI3x8y2iU7PGkJ3Do=";
       plugins = [
         "github.com/caddy-dns/cloudflare@v0.2.2"
       ];
