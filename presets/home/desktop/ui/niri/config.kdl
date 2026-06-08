@@ -73,6 +73,11 @@ window-rule {
 	match app-id="^org\\.keepassxc\\.KeePassXC$"
 	match app-id="^org\\.gnome\\.World\\.Secrets$"
 	match app-id="^Bitwarden$"
+	match app-id="^firefox$" title=" Bitwarden — Mozilla Firefox$"
+
+	match app-id="^signal$"
+	match app-id="^firefox$" title="\\bDiscord\\b"
+
 	block-out-from "screen-capture"
 }
 
