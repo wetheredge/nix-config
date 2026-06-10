@@ -11,6 +11,11 @@ in {
   environment.systemPackages = [
     (pkgs.catppuccin-sddm.override {
       inherit flavor accent;
+      fontSize = "24";
     })
+  ];
+
+  preservation.preserveAt.cache.directories = [
+    "/var/lib/sddm"
   ];
 }
