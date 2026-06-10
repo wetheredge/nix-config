@@ -1,30 +1,16 @@
-{
-  pkgs,
-  vars,
-  ...
-}: let
-  catppuccinMocha = {
-    text = "#cdd6f4";
-    base = "#1e1e2e";
+{pkgs, ...}: let
+  flavor = "mocha";
+  accent = "mauve";
+in {
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "catppuccin-${flavor}-${accent}";
   };
 
-  greeter = builtins.toString [
-    "${pkgs.cage}/bin/cage -s --"
-    "${pkgs.greetd-mini-wl-greeter}/bin/greetd-mini-wl-greeter"
-    "--hide-cursor"
-    "--background-color=${catppuccinMocha.base}"
-    "--entry-color=${catppuccinMocha.base}"
-    "--text-color=${catppuccinMocha.text}"
-    "--outline-width=0"
-    "--border-width=0"
-    "--user=${vars.user}"
-    "--command=niri-session"
+  environment.systemPackages = [
+    (pkgs.catppuccin-sddm.override {
+      inherit flavor accent;
+    })
   ];
-in {
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session.command = greeter;
-    };
-  };
 }
