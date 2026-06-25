@@ -20,6 +20,8 @@
     nvd
     ragenix
 
+    exfat
+
     signal-desktop
   ];
 
