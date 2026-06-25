@@ -1,4 +1,8 @@
-{
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    ffmpeg-headless
+  ];
+
   programs.yt-dlp = {
     enable = true;
     extraConfig = ''
