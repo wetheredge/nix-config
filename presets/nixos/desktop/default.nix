@@ -8,6 +8,7 @@
     ./greeter.nix
     ./ios.nix
     ./keyd.nix
+    ./user-secrets.nix
   ];
 
   nix.extraOptions = ''

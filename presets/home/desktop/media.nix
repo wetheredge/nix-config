@@ -1,7 +1,15 @@
-{pkgs, ...}: {
+{
+  config,
+  osConfig,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     ffmpeg-headless
+    itch-dl
   ];
+
+  xdg.configFile."itch-dl/config.json".source = config.lib.file.mkOutOfStoreSymlink osConfig.age.secrets.itch-dl.path;
 
   programs.yt-dlp = {
     enable = true;
