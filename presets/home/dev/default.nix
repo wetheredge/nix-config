@@ -52,6 +52,22 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    config = {
+      disable_stdin = true;
+      strict_env = true;
+    };
+    stdlib = ''
+      # <https://github.com/direnv/direnv/wiki/Customizing-cache-location#human-readable-directories>
+      declare -A direnv_layout_dirs
+      direnv_layout_dir() {
+        local hash path
+        echo "''${direnv_layout_dirs[$PWD]:=$(
+          hash="$(sha1sum - <<< "$PWD" | head -c40)"
+          path="''${PWD//[^a-zA-Z0-9]/-}"
+          echo "''${XDG_CACHE_HOME:-"$HOME/.cache"}/direnv/layouts/$hash$path"
+        )}"
+      }
+    '';
   };
 
   services.podman.enable = true;
@@ -113,6 +129,7 @@
       ".local/share/direnv/allow"
     ];
     cache.directories = [
+      ".cache/direnv"
       ".cache/dprint"
       ".cache/pnpm"
       ".cargo/git"
