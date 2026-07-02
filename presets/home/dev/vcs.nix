@@ -67,16 +67,22 @@
       aliases = let
         execBashScript = script: ["util" "exec" "--" "bash" "-c" script ""];
       in {
-        bump = execBashScript ''
-          set -eo pipefail
-          if [[ -n "$1" ]]; then
-            jj bookmark move "$1" -t "$1+"
-          else
-            jj bookmark move -f "closest_bookmark(@)" -t "closest_bookmark(@)+"
-          fi
-        '';
+        bump = {
+          doc = "Advance a bookmark by one revision";
+          definition = execBashScript ''
+            set -eo pipefail
+            if [[ -n "$1" ]]; then
+              jj bookmark move "$1" -t "$1+"
+            else
+              jj bookmark move -f "closest_bookmark(@)" -t "closest_bookmark(@)+"
+            fi
+          '';
+        };
         # <https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches>
-        tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+        tug = {
+          doc = "Move the most recent bookmark to @-";
+          definition = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+        };
       };
 
       revset-aliases = {
