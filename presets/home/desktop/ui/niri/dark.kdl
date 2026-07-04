@@ -25,3 +25,10 @@ layout {
 		inactive-color "transparent"
 	}
 }
+
+recent-windows {
+	highlight {
+		active-color "#b4befed9" // lavender
+		urgent-color "#f38ba8d9" // red
+	}
+}

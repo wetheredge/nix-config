@@ -57,6 +57,25 @@ layout {
 	}
 }
 
+recent-windows {
+	highlight {
+		padding 24
+		corner-radius 12
+	}
+
+	previews {
+		max-height 600
+		max-scale 0.5
+	}
+
+	binds {
+		Mod+Tab { next-window; }
+		Mod+Shift+Tab { previous-window; }
+		Mod+grave { next-window filter="app-id"; }
+		Mod+Shift+grave { previous-window filter="app-id"; }
+	}
+}
+
 // 8px rounded corners
 prefer-no-csd
 window-rule {
