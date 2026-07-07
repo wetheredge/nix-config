@@ -25,6 +25,9 @@ in {
     };
   };
 
+  # Waiting for bluesky pds issue 348
+  nixpkgs.config.permittedInsecurePackages = ["pnpm-9.15.9"];
+
   boot = {
     initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
