@@ -22,6 +22,7 @@
 
     exfat
 
+    magic-wormhole
     signal-desktop
   ];
 
