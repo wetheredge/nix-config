@@ -14,7 +14,7 @@ in {
     ];
   };
 
-  # Various GUI or interactive features not needed on a VPS; largely based on
+  # Various GUI or interactive features not needed on a server; largely based on
   # <https://github.com/nix-community/srvos/blob/c04379f95fca70b38cdd45a1a7affe6d4226912b/nixos/server/default.nix>
   documentation.enable = false;
   environment.stub-ld.enable = false;

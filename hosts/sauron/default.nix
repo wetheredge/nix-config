@@ -3,7 +3,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
 
-    ../../presets/nixos/vps.nix
+    ../../presets/nixos/server.nix
 
     ./disks.nix
 
