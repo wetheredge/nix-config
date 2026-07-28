@@ -35,8 +35,17 @@ in {
         SHOW_REGISTRATION_BUTTON = false;
       };
 
+      other = {
+        SHOW_FOOTER_BRANDING = false;
+        SHOW_FOOTER_TEMPLATE_LOAD_TIME = false;
+        SHOW_FOOTER_POWERED_BY = false;
+      };
+
       actions.ENABLED = false;
       packages.ENABLED = false;
+      service.ENABLE_TIMETRACKING = false;
+      service.SHOW_MILESTONES_DASHBOARD_PAGE = false;
+      "service.explore".DISABLE_USERS_PAGE = true;
     };
   };
 
