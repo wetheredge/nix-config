@@ -1,32 +1,31 @@
-_default:
-    @just --list --unsorted --justfile '{{ justfile() }}'
+set default-list
 
 switch:
-    nixos-rebuild switch --flake .
+    nh os switch --ask
 
 switch-for host:
-    nixos-rebuild switch --flake .#{{ host }} --target-host {{ host }} --sudo
+    nh os switch --ask --target-host '{{ host }}'
 
 boot:
-    nixos-rebuild boot --flake .
+    nh os boot --ask
 
 boot-for host:
-    nixos-rebuild boot --flake .#{{ host }} --target-host {{ host }} --sudo
+    nh os boot --target-host '{{ host }}'
 
-dry-build host=`hostname`:
-    nixos-rebuild dry-build --flake .#{{ host }}
+build:
+    nh os build --diff always
 
-build host=`hostname`:
-    nixos-rebuild build --flake .#{{ host }}
+build-for host:
+    nh os build --diff never --target-host '{{ host }}'
+
+diff-for host:
+    nh os build --diff always --target-host '{{ host }}'
 
 build-image host *args='':
-    nix build .#nixosConfigurations.{{ host }}.config.system.build.diskoImagesScript
+    nom build .#nixosConfigurations.{{ host }}.config.system.build.diskoImagesScript
     ./result {{ args }}
 
-diff:
-    nixos-rebuild build --flake . && nvd diff /run/current-system result && rm result
-
-update: && diff
+update: && build
     nix flake update
 
 nixos-config path *args='':

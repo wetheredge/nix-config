@@ -16,6 +16,7 @@
 
   home.packages = with pkgs; [
     just
+    nix-output-monitor
     nix-tree
     nvd
     ragenix

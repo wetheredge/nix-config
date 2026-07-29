@@ -93,7 +93,9 @@
     };
 
     eachSystem = f: lib.genAttrs (import systems) f;
-    treefmtEval = eachSystem (system: inputs.treefmt.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix);
+    eachSystemPkgs = f: eachSystem (system: f nixpkgs.legacyPackages.${system});
+
+    treefmtEval = eachSystemPkgs (pkgs: inputs.treefmt.lib.evalModule pkgs ./treefmt.nix);
   in {
     formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
@@ -146,5 +148,15 @@
         };
       })
       |> lib.listToAttrs;
+
+    devShells = eachSystemPkgs (pkgs: {
+      default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          just
+          nh
+          nix-output-monitor
+        ];
+      };
+    });
   };
 }
