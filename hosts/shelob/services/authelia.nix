@@ -30,13 +30,7 @@
 
     authentication_backend:
       file:
-        path: '${config.age.secrets.authelia-users.path}'
-
-      # User database is read-only
-      password_change:
-        disable: true
-      password_reset:
-        disable: true
+        path: '${stateDir}/users.yaml'
 
     access_control:
       default_policy: two_factor
@@ -56,8 +50,17 @@
         path: '${database}'
 
     notifier:
-      filesystem:
-        filename: '${stateDir}/notification'
+      smtp:
+        address: 'smtp://send-us.ahasend.com:587'
+        username: '${getSecret "smtp.username"}'
+        password: '${getSecret "smtp.password"}'
+        sender: 'Authelia <authelia@noreply.wetheredge.com>'
+        subject: '{title}'
+        startup_check_address: 'test@noreply.wetheredge.com'
+
+    identity_validation:
+      reset_password:
+        jwt_secret: '${getSecret "password_reset_secret"}'
 
     identity_providers:
       oidc:
@@ -138,7 +141,6 @@ in {
       inherit (cfg) group;
     }) {
       authelia = cfg;
-      authelia-users = cfg;
       redis-authelia-password = redisCfg;
     };
 
@@ -147,9 +149,9 @@ in {
   };
 
   preservation.preserveAt = {
-    state.files = [
+    state.directories = [
       {
-        file = database;
+        directory = stateDir;
         inherit (cfg) user group;
       }
     ];
