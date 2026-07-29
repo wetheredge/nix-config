@@ -45,6 +45,11 @@
   };
   services.ssh-agent.enable = true;
 
+  programs.nix-your-shell = {
+    enable = true;
+    nix-output-monitor.enable = true;
+  };
+
   preservation.preserveAt = with config.xdg.userDirs; let
     toRelative = lib.removePrefix config.home.homeDirectory;
   in {
