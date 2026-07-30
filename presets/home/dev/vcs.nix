@@ -78,6 +78,29 @@
             fi
           '';
         };
+        conflicts = {
+          doc = "Open all files with conflicts in $EDITOR";
+          definition = execBashScript ''
+            set -eo pipefail
+            jj show --no-patch -T 'self.conflicted_files().map(|f| f.path())' \
+              | xargs -L1 "$EDITOR"
+          '';
+        };
+        gpa = {
+          doc = "Push all git remotes";
+          definition = execBashScript ''
+            set -eo pipefail
+            jj --ignore-working-copy git remote list \
+              | cut -w -f1 \
+              | xargs -L1 jj git push --remote
+          '';
+        };
+        origin-diff = {
+          doc = "Show local changes to a bookmark relative to origin";
+          definition = execBashScript ''
+            jj --ignore-working-copy diff -f "$1@origin" -t "$1"
+          '';
+        };
         # <https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches>
         tug = {
           doc = "Move the most recent bookmark to @-";
