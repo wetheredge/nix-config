@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [
+    ./boot.nix
     ./fprint.nix
     ./greeter.nix
     ./ios.nix
@@ -16,8 +17,6 @@
   '';
 
   nixpkgs.config.allowUnfree = true;
-
-  boot.loader.timeout = 0;
 
   services.fwupd.enable = true;
 
