@@ -29,7 +29,6 @@ in {
     initrd.systemd.enable = true;
     loader.systemd-boot.enable = true;
   };
-  system.tools.nixos-generate-config.enable = false; # Perl
 
   console.earlySetup = true;
 
@@ -48,6 +47,11 @@ in {
   environment.defaultPackages = [];
   programs.nano.enable = false;
   fonts.enableDefaultPackages = false;
+  system.tools = {
+    nixos-generate-config.enable = false;
+    nixos-install.enable = false;
+    nixos-option.enable = false;
+  };
 
   services.userborn.enable = true;
   users = {
