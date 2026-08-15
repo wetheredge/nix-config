@@ -10,7 +10,7 @@ boot:
     nh os boot --ask
 
 boot-for host:
-    nh os boot --target-host '{{ host }}'
+    nh os boot --target-host '{{ host }}' --elevation-strategy passwordless
 
 build:
     nh os build --diff always
