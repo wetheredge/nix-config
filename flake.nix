@@ -121,7 +121,7 @@
             ./overlays/lix.nix
             ./overlays/locales
 
-            ./presets/nixos/base.nix
+            ./presets/nixos/base
             ./hosts/${host}
 
             {networking.hostName = host;}
