@@ -28,6 +28,8 @@
 
   console.earlySetup = true;
 
+  system.etc.overlay.enable = true;
+
   security.sudo-rs.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
