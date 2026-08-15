@@ -40,15 +40,17 @@ in {
       forget = let
         times = ["minutely" "hourly" "daily" "weekly" "monthly" "quarterly" "half-yearly" "yearly"];
         mkKeep = prefix: keys: type:
-          keys
-          |> lib.map (key: {
-            name = "${prefix}-${key}";
-            value = mkOption {
-              type = types.nullOr type;
-              default = null;
-            };
-          })
-          |> lib.listToAttrs;
+          lib.pipe keys [
+            lib.flatten
+            (lib.map (key: {
+              name = "${prefix}-${key}";
+              value = mkOption {
+                type = types.nullOr type;
+                default = null;
+              };
+            }))
+            lib.listToAttrs
+          ];
       in
         {
           prune = mkOption {
@@ -60,7 +62,7 @@ in {
             default = [];
           };
         }
-        // (mkKeep "keep" (lib.flatten ["last" times]) types.int)
+        // (mkKeep "keep" ["last" times] types.int)
         // (mkKeep "keep-within" times types.str);
     };
 

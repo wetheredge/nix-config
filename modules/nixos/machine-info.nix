@@ -3,15 +3,15 @@
   lib,
   ...
 }: let
-  toUpperSnakeCase = s:
-    s
-    |> lib.split "[[:upper:]]"
-    |> lib.map (a:
+  toUpperSnakeCase = lib.flip lib.pipe [
+    (lib.split "[[:upper:]]")
+    (lib.map (a:
       if lib.isList a
       then ["_"] ++ a
-      else [(lib.toUpper a)])
-    |> lib.flatten
-    |> lib.concatStrings;
+      else [(lib.toUpper a)]))
+    lib.flatten
+    lib.concatStrings
+  ];
 in {
   options.environment.machine-info = with lib; {
     prettyHostname = mkOption {
@@ -56,10 +56,10 @@ in {
 
   config.environment.etc.machine-info = with lib; rec {
     enable = mkDefault (text != "");
-    text =
-      config.environment.machine-info
-      |> filterAttrs (_: isString)
-      |> mapAttrsToList (key: value: "${toUpperSnakeCase key}=${value}")
-      |> toString;
+    text = lib.pipe config.environment.machine-info [
+      (filterAttrs (_: isString))
+      (mapAttrsToList (k: v: "${toUpperSnakeCase k}=${v}"))
+      toString
+    ];
   };
 }

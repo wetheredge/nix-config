@@ -15,7 +15,6 @@ in {
       experimental-features = [
         "flakes"
         "nix-command"
-        "pipe-operator"
       ];
     };
     gc = {

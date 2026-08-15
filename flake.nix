@@ -103,9 +103,7 @@
       formatting = treefmtEval.${system}.config.build.check self;
     });
 
-    nixosConfigurations =
-      hosts
-      |> lib.mapAttrsToList (host: system: {
+    nixosConfigurations = lib.listToAttrs (lib.mapAttrsToList (host: system: {
         name = host;
         value = lib.nixosSystem {
           inherit system;
@@ -147,7 +145,7 @@
           ];
         };
       })
-      |> lib.listToAttrs;
+      hosts);
 
     devShells = eachSystemPkgs (pkgs: {
       default = pkgs.mkShell {
