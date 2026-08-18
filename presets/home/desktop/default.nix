@@ -10,9 +10,10 @@
     ./firefox.nix
     ./fitness.nix
     ./media.nix
+    ./photography.nix
+    ./shell.nix
     ./ui
     ./wezterm.nix
-    ./shell.nix
   ];
 
   home.packages = with pkgs; [
