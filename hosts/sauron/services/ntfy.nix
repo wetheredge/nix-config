@@ -6,6 +6,11 @@
   cfg = config.services.ntfy-sh;
   host = "ntfy.wetheredge.com";
   stateDir = "/var/lib/ntfy-sh";
+
+  user = {
+    user = "ntfy-sh";
+    group = "ntfy-sh";
+  };
 in {
   services.ntfy-sh = {
     enable = true;
@@ -37,8 +42,8 @@ in {
   systemd.services.ntfy-sh.before = ["ntfy-boot.service"];
 
   age.secrets.ntfy-env = {
-    owner = cfg.user;
-    inherit (cfg) group;
+    owner = user.user;
+    inherit (user) group;
   };
 
   services.caddy.virtualHosts = {
@@ -55,8 +60,8 @@ in {
 
   systemd.services.ntfy-sh.serviceConfig = {
     DynamicUser = lib.mkForce false;
-    User = "ntfy-sh";
-    Group = "ntfy-sh";
+    User = user.user;
+    Group = user.group;
   };
   users = {
     users.ntfy-sh = {
@@ -69,7 +74,7 @@ in {
   preservation.preserveAt.state.directories = [
     {
       directory = stateDir;
-      inherit (cfg) user group;
+      inherit (user) user group;
     }
   ];
 }
