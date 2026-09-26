@@ -4,13 +4,13 @@ switch:
     nh os switch --ask
 
 switch-for host:
-    nh os switch --ask --target-host '{{ host }}'
+    nh os switch --ask --target-host '{{ host }}' --elevation-strategy passwordless --use-substitutes
 
 boot:
     nh os boot --ask
 
 boot-for host:
-    nh os boot --target-host '{{ host }}' --elevation-strategy passwordless
+    nh os boot --target-host '{{ host }}' --elevation-strategy passwordless --use-substitutes
 
 build:
     nh os build --diff always
