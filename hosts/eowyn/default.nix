@@ -41,5 +41,9 @@
     };
   };
 
+  systemd.sleep.settings.Sleep = {
+    MemorySleepMode = "s2idle";
+  };
+
   system.stateVersion = "25.05";
 }
