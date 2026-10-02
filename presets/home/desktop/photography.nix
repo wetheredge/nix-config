@@ -1,5 +1,6 @@
 {pkgs,...}: {
   home.packages = with pkgs; [
+    ente-desktop
     exiftool
 
     (darktable.override {
@@ -13,6 +14,7 @@
     ];
     cache.directories = [
       ".cache/darktable"
+      ".config/ente"
       ".local/share/darktable/models"
     ];
   };
