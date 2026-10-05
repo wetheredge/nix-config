@@ -10,7 +10,6 @@
     ./firefox.nix
     ./fitness.nix
     ./media.nix
-    ./photography.nix
     ./shell.nix
     ./ui
     ./wezterm.nix

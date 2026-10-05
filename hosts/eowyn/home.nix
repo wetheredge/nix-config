@@ -3,6 +3,7 @@
     ../../presets/home/dev
     ../../presets/home/desktop
     ../../presets/home/gaming.nix
+    ../../presets/home/photography.nix
   ];
 
   xdg.configFile."niri/host.kdl".text = ''
