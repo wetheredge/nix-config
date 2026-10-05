@@ -85,6 +85,7 @@ window-rule {
 
 window-rule {
 	match is-focused=false
+	exclude app-id="^org\\.darktable\\.darktable$" title="darktable - darkroom preview"
 	opacity 0.92
 }
 
