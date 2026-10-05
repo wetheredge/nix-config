@@ -109,7 +109,6 @@ window-rule {
 	border { off; }
 	focus-ring { off; }
 	shadow { off; }
-	baba-is-float true
 }
 
 layer-rule {
