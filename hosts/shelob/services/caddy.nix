@@ -12,5 +12,7 @@
       file_server
     '';
     "www.wetheredge.com".extraConfig = "redir https://wetheredge.com{uri}";
+    "wren.photos".extraConfig = ''respond "In construction :)"'';
+    "www.wren.photos".extraConfig = "redir https://wren.photos{uri}";
   };
 }
