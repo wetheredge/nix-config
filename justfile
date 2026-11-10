@@ -6,6 +6,9 @@ switch:
 switch-for host:
     nh os switch --ask --target-host '{{ host }}' --elevation-strategy passwordless --use-substitutes
 
+fast-switch-for host:
+    nh os switch --diff never --target-host '{{ host }}' --elevation-strategy passwordless --use-substitutes
+
 boot:
     nh os boot --ask
 
