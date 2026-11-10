@@ -37,6 +37,10 @@
       "*" = {
         AddKeysToAgent = "yes";
         Compression = true;
+
+        ControlMaster = "auto";
+        ControlPath = "~/.ssh/control-%C";
+        ControlPersist = "5m";
       };
       "knot.wetheredge.com" = {
         HostName = "shelob";
